@@ -1,2 +1,2 @@
-# HITMAN3FIX
-"Fixes" a crash when watching cutscenes in HITMAN3
+# GlacierGen
+Generates a C++ SDK for Glacier Engine games (HITMAN3 only right now) 
