@@ -37,16 +37,12 @@ std::vector<std::string> split(const std::string& s, const std::string& token) {
     return out;
 }
 
-/*genny::Enum* enum_from_name(genny::Namespace* g, const std::string& enum_name) {
-
-}*/
-
 genny::Class* class_from_name(genny::Namespace* g, const std::string& class_name) {
     auto namespaces = split(class_name, ".");
     auto new_ns = g;
 
     if (namespaces.size() > 1) {
-        std::string potential_class_name{""};
+        std::string potential_class_name{ "" };
 
         bool is_actually_class = false;
 
@@ -74,6 +70,41 @@ genny::Class* class_from_name(genny::Namespace* g, const std::string& class_name
     }
 
     return new_ns->class_(namespaces.back());
+}
+
+genny::Enum* enum_from_name(genny::Namespace* g, const std::string& enum_name) {
+    auto namespaces = split(enum_name, ".");
+    auto new_ns = g;
+
+    if (namespaces.size() > 1) {
+        std::string potential_class_name{ "" };
+
+        bool is_actually_class = false;
+
+        for (auto ns = namespaces.begin(); ns != namespaces.end() - 1; ++ns) {
+            if (ns != namespaces.begin()) {
+                potential_class_name += ".";
+            }
+
+            potential_class_name += *ns;
+
+            if (g_class_set.count(potential_class_name) > 0) {
+                class_from_name(g, potential_class_name);
+                is_actually_class = true;
+            }
+            else {
+                new_ns = new_ns->namespace_(*ns);
+            }
+        }
+
+        if (is_actually_class) {
+            auto final_class = class_from_name(g, potential_class_name);
+
+            return final_class->enum_(namespaces.back());
+        }
+    }
+
+    return new_ns->enum_(namespaces.back());
 }
 
 genny::Class* generate_class(genny::Namespace* g, const std::string& class_name, sdk::ClassDescriptor* klass) {
@@ -218,6 +249,39 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
     return c;
 }
 
+genny::Enum* generate_enum(genny::Namespace* g, const std::string& enum_name, sdk::EnumDescriptor* enum_) {
+    auto e = enum_from_name(g, enum_name);
+
+    switch (enum_->size) {
+    case 1:
+        e->type(g->type("uint8_t"));
+        break;
+    case 2:
+        e->type(g->type("uint16_t"));
+        break;
+    case 4:
+        e->type(g->type("uint32_t"));
+        break;
+    case 8:
+        e->type(g->type("uint64_t"));
+        break;
+    }
+
+    if (enum_->enum_start == nullptr || enum_->enum_end == nullptr) {
+        return e;
+    }
+
+    for (auto entry = (sdk::EnumFieldDescriptor*)enum_->enum_start; entry != nullptr && entry != enum_->enum_end; ++entry) {
+        if (entry->name == nullptr) {
+            continue;
+        }
+
+        e->value(entry->name, entry->value);
+    }
+
+    return e;
+}
+
 extern "C"
 __declspec(dllexport) void generate() {
     printf("SDKGEN start\n");
@@ -267,7 +331,7 @@ __declspec(dllexport) void generate() {
             generate_class(g, t.name, t.type_info->descriptor);
         }
         else if (ti == (uint32_t)sdk::DescriptorType::Enum) {
-            g->namespace_("enums")->enum_(t.name);
+            generate_enum(g, t.name, (sdk::EnumDescriptor*)t.type_info->descriptor);
         }
     }
 
