@@ -3,14 +3,31 @@
 
 #include <windows.h>
 
-#include "TypeRegistry.hpp"
+#include "utility/Scan.hpp"
 
+#include "TypeRegistry.hpp"
 #include "Genny.hpp"
 
 std::unordered_set<std::string> g_class_set{};
 
 void* get_tagged_pool(const char* name) {
-    auto func = (decltype(get_tagged_pool)*)((uintptr_t)GetModuleHandle(0) + 0xC31B0);
+    // v1 offset: game + 0xC31B0
+    static decltype(get_tagged_pool)* func = nullptr;
+
+    if (func == nullptr) {
+        std::cout << "Finding GetTaggedPool" << std::endl;
+
+        // just look for "ioi_typeinforegistry"
+        auto ref = utility::scan(GetModuleHandle(0), "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 89 05 ? ? ? ? 48 85 C0");
+
+        if (!ref) {
+            std::cout << "Failed to find GetTaggedPool" << std::endl;
+            return nullptr;
+        }
+
+        func = (decltype(func))utility::calculate_absolute(*ref + 8);
+        std::cout << "GetTaggedPool: " << std::hex << func << std::endl;
+    }
 
     return func(name);
 }
@@ -128,7 +145,7 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
             sorted_heirarchy.push_back(super);
         }
-
+        
         std::sort(sorted_heirarchy.begin(), sorted_heirarchy.end(), [](sdk::HeirarchyDescriptor* a, sdk::HeirarchyDescriptor* b) {
             return a->offset < b->offset;
         });
