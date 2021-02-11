@@ -5,40 +5,11 @@
 
 #include "utility/Scan.hpp"
 
-#include "TypeRegistry.hpp"
+#include "sdk/TypeRegistry.hpp"
+#include "sdk/Pool.hpp"
 #include "Genny.hpp"
 
 std::unordered_set<std::string> g_class_set{};
-
-void* get_tagged_pool(const char* name) {
-    // v1 offset: game + 0xC31B0
-    static decltype(get_tagged_pool)* func = nullptr;
-
-    if (func == nullptr) {
-        std::cout << "Finding GetTaggedPool" << std::endl;
-
-        // just look for "ioi_typeinforegistry"
-        auto ref = utility::scan(GetModuleHandle(0), "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 89 05 ? ? ? ? 48 85 C0");
-
-        if (!ref) {
-            std::cout << "Failed to find GetTaggedPool" << std::endl;
-            return nullptr;
-        }
-
-        func = (decltype(func))utility::calculate_absolute(*ref + 8);
-        std::cout << "GetTaggedPool: " << std::hex << func << std::endl;
-    }
-
-    return func(name);
-}
-
-TypeRegistry* get_type_registry() {
-    return (TypeRegistry*)get_tagged_pool("ioi_typeinforegistry");
-}
-
-void* get_config_vars() {
-    return get_tagged_pool("base.config.vars");
-}
 
 std::vector<std::string> split(const std::string& s, const std::string& token) {
     std::vector<std::string> out{};
@@ -324,7 +295,7 @@ __declspec(dllexport) void generate() {
     g->type("void")->size(0);
     g->type("void*")->size(8);
 
-    auto types = get_type_registry();
+    auto types = sdk::TypeRegistry::get();
 
     // First pass, gather all valid class names
     for (auto& t : *types) {

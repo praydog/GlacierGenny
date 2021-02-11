@@ -1,12 +1,14 @@
 project(SDKGEN)
 
 set(SDK_SRC
-    Enums.hpp
-    ReClass.hpp
-    ReClass_Internal.hpp
-    TArray.hpp
-    TypeRegistry.hpp
-    TypeRegistry.cpp
+    sdk/Enums.hpp
+    sdk/ReClass.hpp
+    sdk/ReClass_Internal.hpp
+    sdk/TArray.hpp
+    sdk/TypeRegistry.hpp
+    sdk/TypeRegistry.cpp
+    sdk/Pool.hpp
+    sdk/Pool.cpp
 )
 
 set(UTILITY_SRC
