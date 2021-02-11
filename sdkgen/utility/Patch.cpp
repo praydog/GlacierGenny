@@ -8,9 +8,9 @@ std::unique_ptr<Patch> Patch::create(uintptr_t addr, const std::vector<int16_t>&
     return std::make_unique<Patch>(addr, b, shouldEnable);
 }
 
-
 std::unique_ptr<Patch> Patch::create_nop(uintptr_t addr, uint32_t length, bool shouldEnable) {
-    std::vector<decltype(m_bytes)::value_type> bytes; bytes.resize(length);
+    std::vector<decltype(m_bytes)::value_type> bytes;
+    bytes.resize(length);
     std::fill(bytes.begin(), bytes.end(), 0x90);
 
     return std::make_unique<Patch>(addr, bytes, shouldEnable);
@@ -40,7 +40,7 @@ bool Patch::patch(uintptr_t address, const vector<int16_t>& bytes) {
 }
 
 optional<DWORD> Patch::protect(uintptr_t address, size_t size, DWORD protection) {
-    DWORD oldProtection{ 0 };
+    DWORD oldProtection{0};
 
     if (VirtualProtect((LPVOID)address, size, protection, &oldProtection) != FALSE) {
         return oldProtection;
@@ -49,10 +49,8 @@ optional<DWORD> Patch::protect(uintptr_t address, size_t size, DWORD protection)
     return {};
 }
 
-Patch::Patch(uintptr_t addr, const std::vector<int16_t>& b, bool shouldEnable /*= true*/) 
-    : m_address{ addr },
-    m_bytes{ b }
-{
+Patch::Patch(uintptr_t addr, const std::vector<int16_t>& b, bool shouldEnable /*= true*/)
+    : m_address{addr}, m_bytes{b} {
     if (shouldEnable) {
         enable();
     }
@@ -88,7 +86,6 @@ bool Patch::toggle() {
 
     return !disable();
 }
-
 
 bool Patch::toggle(bool state) {
     return state ? enable() : disable();

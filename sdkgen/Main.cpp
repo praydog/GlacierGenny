@@ -1,13 +1,13 @@
-#include <iostream>
 #include <filesystem>
+#include <iostream>
 
 #include <windows.h>
 
 #include "utility/Scan.hpp"
 
-#include "sdk/TypeRegistry.hpp"
-#include "sdk/Pool.hpp"
 #include "Genny.hpp"
+#include "sdk/Pool.hpp"
+#include "sdk/TypeRegistry.hpp"
 
 std::unordered_set<std::string> g_class_set{};
 
@@ -30,7 +30,7 @@ genny::Class* class_from_name(genny::Namespace* g, const std::string& class_name
     auto new_ns = g;
 
     if (namespaces.size() > 1) {
-        std::string potential_class_name{ "" };
+        std::string potential_class_name{""};
 
         bool is_actually_class = false;
 
@@ -44,8 +44,7 @@ genny::Class* class_from_name(genny::Namespace* g, const std::string& class_name
             if (g_class_set.count(potential_class_name) > 0) {
                 class_from_name(g, potential_class_name);
                 is_actually_class = true;
-            }
-            else {
+            } else {
                 new_ns = new_ns->namespace_(*ns);
             }
         }
@@ -65,7 +64,7 @@ genny::Enum* enum_from_name(genny::Namespace* g, const std::string& enum_name) {
     auto new_ns = g;
 
     if (namespaces.size() > 1) {
-        std::string potential_class_name{ "" };
+        std::string potential_class_name{""};
 
         bool is_actually_class = false;
 
@@ -79,8 +78,7 @@ genny::Enum* enum_from_name(genny::Namespace* g, const std::string& enum_name) {
             if (g_class_set.count(potential_class_name) > 0) {
                 class_from_name(g, potential_class_name);
                 is_actually_class = true;
-            }
-            else {
+            } else {
                 new_ns = new_ns->namespace_(*ns);
             }
         }
@@ -101,11 +99,11 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
     auto get_short_name = c->static_function("get_short_name");
     get_short_name->returns(g->type("const char*")->size(8));
-    get_short_name->procedure(std::string{ "return \"" } + split(class_name, ".").back() + "\"");
+    get_short_name->procedure(std::string{"return \""} + split(class_name, ".").back() + "\"");
 
     auto get_full_name = c->static_function("get_full_name");
     get_full_name->returns(g->type("const char*")->size(8));
-    get_full_name->procedure(std::string{ "return \"" } + class_name + "\"");
+    get_full_name->procedure(std::string{"return \""} + class_name + "\"");
 
     // Inheritance
     if (klass->base_inheritance != nullptr && klass->num_inheritance > 0) {
@@ -117,33 +115,33 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
             sorted_heirarchy.push_back(super);
         }
 
-        std::sort(sorted_heirarchy.begin(), sorted_heirarchy.end(), [](sdk::HeirarchyDescriptor* a, sdk::HeirarchyDescriptor* b) {
-            return a->offset < b->offset;
-        });
+        std::sort(sorted_heirarchy.begin(), sorted_heirarchy.end(),
+            [](sdk::HeirarchyDescriptor* a, sdk::HeirarchyDescriptor* b) { return a->offset < b->offset; });
 
         sdk::HeirarchyDescriptor* prev = nullptr;
 
         for (auto it = sorted_heirarchy.begin(); it != sorted_heirarchy.end(); ++it) {
             auto super = *it;
 
-            if (super->klass != nullptr && super->klass->descriptor != nullptr && super->klass->descriptor->name != nullptr) {
+            if (super->klass != nullptr && super->klass->descriptor != nullptr &&
+                super->klass->descriptor->name != nullptr) {
                 auto super_genny = class_from_name(g, super->klass->descriptor->name);
 
                 c->parent(super_genny);
-            }
-            else { // We need to generate a fake type to fill the gap in the inheritance.
+            } else { // We need to generate a fake type to fill the gap in the inheritance.
                 printf("%s has bad inheritance (descriptor 0x%p)\n", class_name.c_str(), super);
 
                 auto next = it + 1;
 
                 if (next != sorted_heirarchy.end()) {
                     auto fake_class_ns = g->namespace_("genny");
-                    auto fake_class = fake_class_ns->class_(std::string{ "Generated" } + std::to_string((uintptr_t)super));
+                    auto fake_class =
+                        fake_class_ns->class_(std::string{"Generated"} + std::to_string((uintptr_t)super));
                     c->parent(fake_class);
 
-                    printf(" 0x%X->0x%X (0x%X)\n", (int32_t)super->offset, (int32_t)(*next)->offset, ((int32_t)(*next)->offset - (int32_t)super->offset));
-                }
-                else {
+                    printf(" 0x%X->0x%X (0x%X)\n", (int32_t)super->offset, (int32_t)(*next)->offset,
+                        ((int32_t)(*next)->offset - (int32_t)super->offset));
+                } else {
                     printf(" next is null\n");
                 }
             }
@@ -166,60 +164,46 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
             }
 
             auto descriptor = ft->descriptor;
-            auto field_name = std::string{ field->field_name };
-            auto ft_name = std::string{ descriptor->name };
+            auto field_name = std::string{field->field_name};
+            auto ft_name = std::string{descriptor->name};
 
             switch ((sdk::TypeType)ft->type_type) {
-            case sdk::TypeType::EMBEDDED:
-            {
+            case sdk::TypeType::EMBEDDED: {
                 if (descriptor->type_index == (uint32_t)sdk::DescriptorType::CLASS) {
-                    c->variable(field->field_name)->type(class_from_name(g, descriptor->name))->offset(field->field_offset);
-                }
-                else if (descriptor->type_index == (uint32_t)sdk::DescriptorType::PRIMITIVE) {
+                    c->variable(field->field_name)
+                        ->type(class_from_name(g, descriptor->name))
+                        ->offset(field->field_offset);
+                } else if (descriptor->type_index == (uint32_t)sdk::DescriptorType::PRIMITIVE) {
                     if (ft_name == "char") {
                         c->variable(field_name)->offset(field->field_offset)->type("char");
-                    }
-                    else if (ft_name == "bool") {
+                    } else if (ft_name == "bool") {
                         c->variable(field_name)->offset(field->field_offset)->type("bool");
-                    }
-                    else if (ft_name == "uint8") {
+                    } else if (ft_name == "uint8") {
                         c->variable(field_name)->offset(field->field_offset)->type("uint8_t");
-                    }
-                    else if (ft_name == "int8") {
+                    } else if (ft_name == "int8") {
                         c->variable(field_name)->offset(field->field_offset)->type("int8_t");
-                    }
-                    else if (ft_name == "uint16") {
+                    } else if (ft_name == "uint16") {
                         c->variable(field_name)->offset(field->field_offset)->type("uint16_t");
-                    }
-                    else if (ft_name == "int16") {
+                    } else if (ft_name == "int16") {
                         c->variable(field_name)->offset(field->field_offset)->type("int16_t");
-                    }
-                    else if (ft_name == "uint32") {
+                    } else if (ft_name == "uint32") {
                         c->variable(field_name)->offset(field->field_offset)->type("uint32_t");
-                    }
-                    else if (ft_name == "int32") {
+                    } else if (ft_name == "int32") {
                         c->variable(field_name)->offset(field->field_offset)->type("int32_t");
-                    }
-                    else if (ft_name == "uint64") {
+                    } else if (ft_name == "uint64") {
                         c->variable(field_name)->offset(field->field_offset)->type("uint64_t");
-                    }
-                    else if (ft_name == "int64") {
+                    } else if (ft_name == "int64") {
                         c->variable(field_name)->offset(field->field_offset)->type("int64_t");
-                    }
-                    else if (ft_name == "float32") {
+                    } else if (ft_name == "float32") {
                         c->variable(field_name)->offset(field->field_offset)->type("float");
-                    }
-                    else if (ft_name == "float64") {
+                    } else if (ft_name == "float64") {
                         c->variable(field_name)->offset(field->field_offset)->type("double");
                     }
-                }
-                else { // unsupported type, just generate an array of bytes
+                } else { // unsupported type, just generate an array of bytes
                     c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
                 }
-            }
-            break;
-            case sdk::TypeType::POINTER:
-            {
+            } break;
+            case sdk::TypeType::POINTER: {
                 /*if (ft->child == nullptr) {
                     continue;
                 }*/
@@ -259,7 +243,8 @@ genny::Enum* generate_enum(genny::Namespace* g, const std::string& enum_name, sd
         return e;
     }
 
-    for (auto entry = (sdk::EnumFieldDescriptor*)enum_->enum_start; entry != nullptr && entry != enum_->enum_end; ++entry) {
+    for (auto entry = (sdk::EnumFieldDescriptor*)enum_->enum_start; entry != nullptr && entry != enum_->enum_end;
+         ++entry) {
         if (entry->name == nullptr) {
             continue;
         }
@@ -270,8 +255,7 @@ genny::Enum* generate_enum(genny::Namespace* g, const std::string& enum_name, sd
     return e;
 }
 
-extern "C"
-__declspec(dllexport) void generate() {
+extern "C" __declspec(dllexport) void generate() {
     printf("SDKGEN start\n");
 
     genny::Sdk sdk{};
@@ -317,8 +301,7 @@ __declspec(dllexport) void generate() {
 
         if (ti == (uint32_t)sdk::DescriptorType::CLASS) {
             generate_class(g, t.name, t.type_info->descriptor);
-        }
-        else if (ti == (uint32_t)sdk::DescriptorType::ENUM) {
+        } else if (ti == (uint32_t)sdk::DescriptorType::ENUM) {
             generate_enum(g, t.name, (sdk::EnumDescriptor*)t.type_info->descriptor);
         }
     }
