@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(HITMAN3)
+project(GLACIERGEN)
 
 # set output directories
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

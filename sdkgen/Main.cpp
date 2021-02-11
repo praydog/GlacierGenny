@@ -116,7 +116,7 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
             sorted_heirarchy.push_back(super);
         }
-        
+
         std::sort(sorted_heirarchy.begin(), sorted_heirarchy.end(), [](sdk::HeirarchyDescriptor* a, sdk::HeirarchyDescriptor* b) {
             return a->offset < b->offset;
         });
@@ -170,12 +170,12 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
             auto ft_name = std::string{ descriptor->name };
 
             switch ((sdk::TypeType)ft->type_type) {
-            case sdk::TypeType::Embedded:
+            case sdk::TypeType::EMBEDDED:
             {
-                if (descriptor->type_index == (uint32_t)sdk::DescriptorType::Class) {
+                if (descriptor->type_index == (uint32_t)sdk::DescriptorType::CLASS) {
                     c->variable(field->field_name)->type(class_from_name(g, descriptor->name))->offset(field->field_offset);
                 }
-                else if (descriptor->type_index == (uint32_t)sdk::DescriptorType::Primitive) {
+                else if (descriptor->type_index == (uint32_t)sdk::DescriptorType::PRIMITIVE) {
                     if (ft_name == "char") {
                         c->variable(field_name)->offset(field->field_offset)->type("char");
                     }
@@ -217,8 +217,8 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
                 }
             }
-                break;
-            case sdk::TypeType::Pointer:
+            break;
+            case sdk::TypeType::POINTER:
             {
                 /*if (ft->child == nullptr) {
                     continue;
@@ -303,7 +303,7 @@ __declspec(dllexport) void generate() {
             continue;
         }
 
-        if (t.type_info->descriptor->type_index == (uint32_t)sdk::DescriptorType::Class) {
+        if (t.type_info->descriptor->type_index == (uint32_t)sdk::DescriptorType::CLASS) {
             g_class_set.insert(t.name);
         }
     }
@@ -315,10 +315,10 @@ __declspec(dllexport) void generate() {
 
         const auto ti = t.type_info->descriptor->type_index;
 
-        if (ti == (uint32_t)sdk::DescriptorType::Class) {
+        if (ti == (uint32_t)sdk::DescriptorType::CLASS) {
             generate_class(g, t.name, t.type_info->descriptor);
         }
-        else if (ti == (uint32_t)sdk::DescriptorType::Enum) {
+        else if (ti == (uint32_t)sdk::DescriptorType::ENUM) {
             generate_enum(g, t.name, (sdk::EnumDescriptor*)t.type_info->descriptor);
         }
     }

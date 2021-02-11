@@ -4,17 +4,17 @@
 
 namespace sdk {
     enum class TypeType : uint16_t {
-        Embedded = 0,
-        Pointer = 2
+        EMBEDDED = 0,
+        POINTER = 2
     };
 
     enum class DescriptorType : uint32_t {
-        Unknown = 0,
-        Class = 4,
-        Class_Inflated = 5, // e.g. Foo<Bar>
-        TResourcePtr = 6,
-        Enum = 8,
-        TArray = 48,
-        Primitive = 1024 // e.g. int, float, double
+        UNKNOWN = 0,
+        CLASS = 4,
+        CLASS_INFLATED = 5, // e.g. Foo<Bar>
+        T_RESOURCE_PTR = 6,
+        ENUM = 8,
+        T_ARRAY = 48,
+        PRIMITIVE = 1024 // e.g. int, float, double
     };
 }
