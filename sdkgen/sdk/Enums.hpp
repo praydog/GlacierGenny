@@ -11,7 +11,7 @@ enum class TypeType : uint16_t {
 enum class DescriptorType : uint32_t {
     UNKNOWN = 0,
     CLASS = 4,
-    CLASS_INFLATED = 5, // e.g. Foo<Bar>
+    T_ENTITY_REF = 5,
     T_RESOURCE_PTR = 6,
     ENUM = 8,
     T_ARRAY = 48,

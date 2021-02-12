@@ -5,6 +5,7 @@ set(SDK_SRC
     sdk/ReClass.hpp
     sdk/ReClass_Internal.hpp
     sdk/TArray.hpp
+    sdk/TEntityRef.hpp
     sdk/TypeRegistry.hpp
     sdk/TypeRegistry.cpp
     sdk/Pool.hpp

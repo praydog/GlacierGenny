@@ -169,38 +169,127 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
             switch ((sdk::TypeType)ft->type_type) {
             case sdk::TypeType::EMBEDDED: {
-                if (descriptor->type_index == (uint32_t)sdk::DescriptorType::CLASS) {
-                    c->variable(field->field_name)
-                        ->type(class_from_name(g, descriptor->name))
-                        ->offset(field->field_offset);
-                } else if (descriptor->type_index == (uint32_t)sdk::DescriptorType::PRIMITIVE) {
-                    if (ft_name == "char") {
-                        c->variable(field_name)->offset(field->field_offset)->type("char");
-                    } else if (ft_name == "bool") {
-                        c->variable(field_name)->offset(field->field_offset)->type("bool");
-                    } else if (ft_name == "uint8") {
-                        c->variable(field_name)->offset(field->field_offset)->type("uint8_t");
-                    } else if (ft_name == "int8") {
-                        c->variable(field_name)->offset(field->field_offset)->type("int8_t");
-                    } else if (ft_name == "uint16") {
-                        c->variable(field_name)->offset(field->field_offset)->type("uint16_t");
-                    } else if (ft_name == "int16") {
-                        c->variable(field_name)->offset(field->field_offset)->type("int16_t");
-                    } else if (ft_name == "uint32") {
-                        c->variable(field_name)->offset(field->field_offset)->type("uint32_t");
-                    } else if (ft_name == "int32") {
-                        c->variable(field_name)->offset(field->field_offset)->type("int32_t");
-                    } else if (ft_name == "uint64") {
-                        c->variable(field_name)->offset(field->field_offset)->type("uint64_t");
-                    } else if (ft_name == "int64") {
-                        c->variable(field_name)->offset(field->field_offset)->type("int64_t");
-                    } else if (ft_name == "float32") {
-                        c->variable(field_name)->offset(field->field_offset)->type("float");
-                    } else if (ft_name == "float64") {
-                        c->variable(field_name)->offset(field->field_offset)->type("double");
+                switch ((sdk::DescriptorType)descriptor->type_index) {
+                case sdk::DescriptorType::CLASS: {
+                    if (field->field_offset == 0 && field->get_field != nullptr) {
+                        auto f = c->function("get_" + field_name);
+
+                        f->param("out")->type(class_from_name(g, descriptor->name)->ref());
+                        f->procedure(std::string{"((void(*)(void*, void*))"} +
+                                     std::to_string((uintptr_t)field->get_field) + ")(this, &out);");
+                    } else {
+                        c->variable(field_name)
+                            ->type(class_from_name(g, descriptor->name))
+                            ->offset(field->field_offset);
                     }
-                } else { // unsupported type, just generate an array of bytes
+                }
+
+                break;
+
+                // e.g. TEntityRef<blah>
+                case sdk::DescriptorType::T_ENTITY_REF: {
+                    if (ft_name.find("TEntityRef") == std::string::npos) {
+                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        break;
+                    }
+
+                    if (descriptor->init_data == nullptr || descriptor->num_init_data != 2) {
+                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        break;
+                    }
+
+                    auto type_load_ref =
+                        utility::scan((uintptr_t)(*descriptor->init_data)[1].constructor, 0x50, "48 8D 15 ? ? ? ?");
+
+                    if (!type_load_ref) {
+                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        break;
+                    }
+
+                    auto contained_type = (sdk::Type_CLASS*)utility::calculate_absolute((*type_load_ref) + 3);
+
+                    if (contained_type == nullptr || contained_type->descriptor == nullptr ||
+                        contained_type->descriptor->name == nullptr) {
+                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        break;
+                    }
+
+                    // nope
+                    if (contained_type->descriptor->type_index != (uint32_t)sdk::DescriptorType::CLASS) {
+                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        break;
+                    }
+
+                    auto contained_name = std::string{contained_type->descriptor->name};
+                    auto proper_class = class_from_name(g, contained_name);
+
+                    std::stringstream proper_typename;
+                    proper_class->generate_typename_for(proper_typename, proper_class);
+
+                    std::string proper_name{"sdk::TEntityRef<"};
+                    proper_name += proper_typename.str() + ">";
+
+                    c->variable(field_name)
+                        ->type(g->generic_type(proper_name)->template_type(proper_class)->size(0x10))
+                        ->offset(field->field_offset);
+                }
+
+                break;
+                case sdk::DescriptorType::ENUM:
+                    c->variable(field_name)->type(enum_from_name(g, descriptor->name))->offset(field->field_offset);
+                    break;
+                case sdk::DescriptorType::PRIMITIVE: {
+
+                    std::string type_name = "";
+
+                    if (ft_name == "char") {
+                        type_name = "char";
+                    } else if (ft_name == "bool") {
+                        type_name = "bool";
+                    } else if (ft_name == "uint8") {
+                        type_name = "uint8_t";
+                    } else if (ft_name == "int8") {
+                        type_name = "int8_t";
+                    } else if (ft_name == "uint16") {
+                        type_name = "uint16_t";
+                    } else if (ft_name == "int16") {
+                        type_name = "int16_t";
+                    } else if (ft_name == "uint32") {
+                        type_name = "uint32_t";
+                    } else if (ft_name == "int32") {
+                        type_name = "int32_t";
+                    } else if (ft_name == "uint64") {
+                        type_name = "uint64_t";
+                    } else if (ft_name == "int64") {
+                        type_name = "int64_t";
+                    } else if (ft_name == "float32") {
+                        type_name = "float";
+                    } else if (ft_name == "float64") {
+                        type_name = "double";
+                    } else {
+                        if (field->field_offset != 0 && field->get_field == nullptr) {
+                            c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        }
+
+                        break;
+                    }
+
+                    if (field->field_offset == 0 && field->get_field != nullptr) {
+                        auto f = c->function("get_" + field_name);
+
+                        f->param("out")->type(g->type(type_name)->ref());
+                        f->procedure(std::string{"((void(*)(void*, void*))"} +
+                                     std::to_string((uintptr_t)field->get_field) + ")(this, &out);");
+                    } else {
+                        c->variable(field_name)->offset(field->field_offset)->type(type_name);
+                    }
+                }
+
+                break;
+                default:
+                    // unsupported type, just generate an array of bytes
                     c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                    break;
                 }
             } break;
             case sdk::TypeType::POINTER: {
@@ -261,6 +350,8 @@ extern "C" __declspec(dllexport) void generate() {
     genny::Sdk sdk{};
     auto g = sdk.global_ns();
 
+    sdk.include("sdk/TEntityRef.hpp");
+    sdk.include("sdk/TArray.hpp");
     sdk.include("cstdint");
 
     g->type("int8_t")->size(1);
