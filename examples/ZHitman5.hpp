@@ -50,7 +50,7 @@ public:
     bool m_bStreamableDisguiseGive; // 0x760
     char pad_761[0x7];
     sdk::TEntityRef<IVariationResourceEntity> m_DefaultWeaponVariationResource; // 0x768
-    sdk::TArray<void*> m_EnvironmentClothColliders; // 0x778
+    sdk::TArray<sdk::TEntityRef<void*>> m_EnvironmentClothColliders; // 0x778
     char pad_790[0x18];
     ZGuid m_CharacterId; // 0x7a8
     char pad_7b8[0x68];
