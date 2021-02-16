@@ -2,39 +2,40 @@
 #include <cstdint>
 #include <sdk/TArray.hpp>
 #include <sdk/TEntityRef.hpp>
-#include ".\IChildNetworkEntity.hpp"
-#include ".\ICharacterMovementState.hpp"
-#include ".\IVariationResourceEntity.hpp"
-#include ".\ZGuid.hpp"
-#include ".\ZRepositoryID.hpp"
-#include ".\ZHeroGuideController.hpp"
-#include ".\ZEntityRef.hpp"
-#include ".\ZHeroInteractionController.hpp"
-#include ".\ZItemPlacementConfigurationEntity.hpp"
-#include ".\ZPhysicsSystemEntity.hpp"
-#include ".\ICharacterLocationState.hpp"
-#include ".\ICharacterArrestState.hpp"
-#include ".\ZBodyPartEntity.hpp"
-#include ".\ZRuntimeResourceID.hpp"
-#include ".\ZHeroIKController.hpp"
-#include ".\ZCheatController.hpp"
-#include ".\IControllableCharacter.hpp"
-#include ".\ZHeroActorTagController.hpp"
+#include <sdk/ZString.hpp>
+#include ".\ICharacterInventoryState.hpp"
 #include ".\ZCharacter.hpp"
-#include ".\ZHM5MainCamera.hpp"
+#include ".\ZHeroGuideController.hpp"
+#include ".\ICharacterIllegalInteractionsState.hpp"
+#include ".\ZBodyPartEntity.hpp"
+#include ".\ZRepositoryID.hpp"
 #include ".\ZHM5BaseCharacter.hpp"
+#include ".\ZItemPlacementConfigurationEntity.hpp"
+#include ".\ICharacterShowItemState.hpp"
+#include ".\ZEntityRef.hpp"
+#include ".\IVariationResourceEntity.hpp"
+#include ".\IChildNetworkEntity.hpp"
+#include ".\ZPhysicsSystemEntity.hpp"
+#include ".\ZGuid.hpp"
+#include "genny\Generated5393658624.hpp"
+#include ".\ZHeroActorTagController.hpp"
+#include ".\ISavableEntity.hpp"
+#include ".\ZRuntimeResourceID.hpp"
+#include ".\ZHeroInteractionController.hpp"
+#include ".\ZCheatController.hpp"
+#include ".\ZHeroIKController.hpp"
+#include ".\ZHM5MainCamera.hpp"
 #include ".\IFutureCameraState.hpp"
 #include ".\ICharacterCollision.hpp"
 #include "genny\Generated5393658608.hpp"
-#include ".\ICharacterCombatState.hpp"
-#include "genny\Generated5393658624.hpp"
+#include ".\IControllableCharacter.hpp"
 #include ".\IHM5ActionEntityListener.hpp"
-#include ".\ICharacterIllegalInteractionsState.hpp"
-#include ".\ISavableEntity.hpp"
 #include ".\IAIGameplayConcept.hpp"
-#include ".\ICharacterInventoryState.hpp"
+#include ".\ICharacterMovementState.hpp"
+#include ".\ICharacterCombatState.hpp"
 #include ".\ICharacterFriskingState.hpp"
-#include ".\ICharacterShowItemState.hpp"
+#include ".\ICharacterArrestState.hpp"
+#include ".\ICharacterLocationState.hpp"
 #include ".\ICharacterCameraState.hpp"
 #pragma pack(push, 1)
 class ZHitman5 : public ZHM5BaseCharacter, public IFutureCameraState, public ICharacterCollision, public genny::Generated5393658608, public genny::Generated5393658624, public IControllableCharacter, public IHM5ActionEntityListener, public ISavableEntity, public IAIGameplayConcept, public ICharacterMovementState, public ICharacterCombatState, public ICharacterInventoryState, public ICharacterFriskingState, public ICharacterShowItemState, public ICharacterArrestState, public ICharacterIllegalInteractionsState, public ICharacterLocationState, public ICharacterCameraState {
@@ -49,7 +50,7 @@ public:
     bool m_bStreamableDisguiseGive; // 0x760
     char pad_761[0x7];
     sdk::TEntityRef<IVariationResourceEntity> m_DefaultWeaponVariationResource; // 0x768
-    uint8_t m_EnvironmentClothColliders[24]; // 0x778
+    sdk::TArray<void*> m_EnvironmentClothColliders; // 0x778
     char pad_790[0x18];
     ZGuid m_CharacterId; // 0x7a8
     char pad_7b8[0x68];

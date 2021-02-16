@@ -2,11 +2,12 @@
 #include <cstdint>
 #include <sdk/TArray.hpp>
 #include <sdk/TEntityRef.hpp>
+#include <sdk/ZString.hpp>
 #include ".\SVector3.hpp"
 #include ".\SVector2.hpp"
+#include ".\ZEntityImpl.hpp"
 #include ".\SColorRGB.hpp"
 #include ".\IMiddleGrayCurveEntity.hpp"
-#include ".\ZEntityImpl.hpp"
 #include ".\IRenderPostfilterParametersEntity.hpp"
 #pragma pack(push, 1)
 class ZRenderPostfilterParametersEntity : public ZEntityImpl, public IRenderPostfilterParametersEntity {
