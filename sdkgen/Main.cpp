@@ -100,26 +100,28 @@ genny::GenericType* type_from_entity_ref(genny::Namespace* g, sdk::ClassDescript
         return nullptr;
     }
 
+    auto generic_entity_ref = (genny::GenericType*)g->generic_type("sdk::TEntityRef<void*>")->size(0x10);
+
     if (descriptor->init_data == nullptr || descriptor->num_init_data != 2) {
-        return nullptr;
+        return generic_entity_ref;
     }
 
     auto type_load_ref = utility::scan((uintptr_t)(*descriptor->init_data)[1].constructor, 0x50, "48 8D 15 ? ? ? ?");
 
     if (!type_load_ref) {
-        return nullptr;
+        return generic_entity_ref;
     }
 
     auto contained_type = (sdk::Type_CLASS*)utility::calculate_absolute((*type_load_ref) + 3);
 
     if (contained_type == nullptr || contained_type->descriptor == nullptr ||
         contained_type->descriptor->name == nullptr) {
-        return nullptr;
+        return generic_entity_ref;
     }
 
     // nope
     if (contained_type->descriptor->type_index != (uint32_t)sdk::DescriptorType::CLASS) {
-        return nullptr;
+        return generic_entity_ref;
     }
 
     auto contained_name = std::string{contained_type->descriptor->name};
