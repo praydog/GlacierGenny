@@ -93,6 +93,144 @@ genny::Enum* enum_from_name(genny::Namespace* g, const std::string& enum_name) {
     return new_ns->enum_(namespaces.back());
 }
 
+genny::GenericType* type_from_entity_ref(genny::Namespace* g, sdk::ClassDescriptor* descriptor) {
+    auto ft_name = std::string{descriptor->name};
+
+    if (ft_name.find("TEntityRef") == std::string::npos) {
+        return nullptr;
+    }
+
+    if (descriptor->init_data == nullptr || descriptor->num_init_data != 2) {
+        return nullptr;
+    }
+
+    auto type_load_ref = utility::scan((uintptr_t)(*descriptor->init_data)[1].constructor, 0x50, "48 8D 15 ? ? ? ?");
+
+    if (!type_load_ref) {
+        return nullptr;
+    }
+
+    auto contained_type = (sdk::Type_CLASS*)utility::calculate_absolute((*type_load_ref) + 3);
+
+    if (contained_type == nullptr || contained_type->descriptor == nullptr ||
+        contained_type->descriptor->name == nullptr) {
+        return nullptr;
+    }
+
+    // nope
+    if (contained_type->descriptor->type_index != (uint32_t)sdk::DescriptorType::CLASS) {
+        return nullptr;
+    }
+
+    auto contained_name = std::string{contained_type->descriptor->name};
+    auto proper_class = class_from_name(g, contained_name);
+
+    std::stringstream proper_typename;
+    proper_class->generate_typename_for(proper_typename, proper_class);
+
+    std::string proper_name{"sdk::TEntityRef<"};
+    proper_name += proper_typename.str() + ">";
+
+    auto t = g->generic_type(proper_name)->template_type(proper_class);
+    t->size(0x10);
+
+    return t;
+}
+
+genny::Type* type_from_primitive(genny::Namespace* g, sdk::BaseTypeDescriptor* descriptor) {
+    std::string type_name{""};
+    auto ft_name = std::string{descriptor->name};
+
+    if (ft_name == "char") {
+        type_name = "char";
+    } else if (ft_name == "bool") {
+        type_name = "bool";
+    } else if (ft_name == "uint8") {
+        type_name = "uint8_t";
+    } else if (ft_name == "int8") {
+        type_name = "int8_t";
+    } else if (ft_name == "uint16") {
+        type_name = "uint16_t";
+    } else if (ft_name == "int16") {
+        type_name = "int16_t";
+    } else if (ft_name == "uint32") {
+        type_name = "uint32_t";
+    } else if (ft_name == "int32") {
+        type_name = "int32_t";
+    } else if (ft_name == "uint64") {
+        type_name = "uint64_t";
+    } else if (ft_name == "int64") {
+        type_name = "int64_t";
+    } else if (ft_name == "float32") {
+        type_name = "float";
+    } else if (ft_name == "float64") {
+        type_name = "double";
+    } else {
+        printf("Unhandled primitive: %s\n", ft_name.c_str());
+        return nullptr;
+    }
+
+    return g->type(type_name);
+}
+
+template <typename T = genny::Type> T* type_from_descriptor(genny::Namespace* g, sdk::BaseTypeDescriptor* descriptor);
+
+genny::GenericType* type_from_array(genny::Namespace* g, sdk::TArrayDescriptor* descriptor) {
+    if (descriptor->contained_type == nullptr || descriptor->contained_type->descriptor == nullptr) {
+        return nullptr;
+    }
+
+    auto inner = type_from_descriptor(g, descriptor->contained_type->descriptor);
+
+    if (inner == nullptr) {
+        return nullptr;
+    }
+
+    auto contained_name = std::string{descriptor->contained_type->descriptor->name};
+
+    std::stringstream proper_typename;
+    inner->generate_typename_for(proper_typename, inner);
+
+    std::string proper_name{"sdk::TArray<"};
+    proper_name += proper_typename.str() + ">";
+
+    auto t = g->generic_type(proper_name)->template_type(inner);
+    t->size(0x18);
+
+    return t;
+}
+
+template <typename T> T* type_from_descriptor(genny::Namespace* g, sdk::BaseTypeDescriptor* descriptor) {
+    if (descriptor->name == nullptr) {
+        return nullptr;
+    }
+
+    auto ft_name = std::string{descriptor->name};
+
+    switch ((sdk::DescriptorType)descriptor->type_index) {
+    case sdk::DescriptorType::VARIANT:
+        if (ft_name == "ZString") {
+            return g->type("sdk::ZString")->size(descriptor->size);
+        } else if (ft_name == "ZVariant" && descriptor->size == 0x10) {
+            return g->class_("ZVariant")->size(0x10);
+        }
+
+        return nullptr;
+    case sdk::DescriptorType::CLASS:
+        return class_from_name(g, ft_name);
+    case sdk::DescriptorType::T_ENTITY_REF:
+        return type_from_entity_ref(g, (sdk::ClassDescriptor*)descriptor);
+    case sdk::DescriptorType::ENUM:
+        return enum_from_name(g, ft_name);
+    case sdk::DescriptorType::T_ARRAY:
+        return type_from_array(g, (sdk::TArrayDescriptor*)descriptor);
+    case sdk::DescriptorType::PRIMITIVE:
+        return type_from_primitive(g, descriptor);
+    default:
+        return nullptr;
+    }
+}
+
 genny::Class* generate_class(genny::Namespace* g, const std::string& class_name, sdk::ClassDescriptor* klass) {
     auto c = class_from_name(g, class_name);
     c->size(klass->size);
@@ -167,18 +305,14 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
             auto field_name = std::string{field->field_name};
             auto ft_name = std::string{descriptor->name};
 
+            auto t = type_from_descriptor(g, descriptor);
+
             switch ((sdk::TypeType)ft->type_type) {
             case sdk::TypeType::EMBEDDED: {
                 switch ((sdk::DescriptorType)descriptor->type_index) {
                 case sdk::DescriptorType::VARIANT:
-                    if (ft_name == "ZString") {
-                        c->variable(field_name)
-                            ->type(g->type("sdk::ZString")->size(descriptor->size))
-                            ->offset(field->field_offset);
-                    } else if (ft_name == "ZVariant" && descriptor->size == 0x10) {
-                        auto z_variant = g->class_("ZVariant")->size(0x10);
-
-                        c->variable(field_name)->type(z_variant)->offset(field->field_offset);
+                    if (t != nullptr) {
+                        c->variable(field_name)->type(t)->offset(field->field_offset);
                     } else {
                         c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
                     }
@@ -188,13 +322,11 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     if (field->field_offset == 0 && field->get_field != nullptr) {
                         auto f = c->function("get_" + field_name);
 
-                        f->param("out")->type(class_from_name(g, descriptor->name)->ref());
+                        f->param("out")->type(t->ref());
                         f->procedure(std::string{"((void(*)(void*, void*))"} +
                                      std::to_string((uintptr_t)field->get_field) + ")(this, &out);");
                     } else {
-                        c->variable(field_name)
-                            ->type(class_from_name(g, descriptor->name))
-                            ->offset(field->field_offset);
+                        c->variable(field_name)->type(t)->offset(field->field_offset);
                     }
                 }
 
@@ -202,85 +334,27 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
                 // e.g. TEntityRef<blah>
                 case sdk::DescriptorType::T_ENTITY_REF: {
-                    if (ft_name.find("TEntityRef") == std::string::npos) {
+                    if (t == nullptr) {
                         c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
-                        break;
+                    } else {
+                        c->variable(field_name)->type(t)->offset(field->field_offset);
                     }
-
-                    if (descriptor->init_data == nullptr || descriptor->num_init_data != 2) {
-                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                } break;
+                case sdk::DescriptorType::T_ARRAY: {
+                    if (t == nullptr) {
+                        c->variable(field_name)
+                            ->type(g->generic_type("sdk::TArray<void*>")->size(0x18))
+                            ->offset(field->field_offset);
                         break;
+                    } else {
+                        c->variable(field_name)->type(t)->offset(field->field_offset);
                     }
-
-                    auto type_load_ref =
-                        utility::scan((uintptr_t)(*descriptor->init_data)[1].constructor, 0x50, "48 8D 15 ? ? ? ?");
-
-                    if (!type_load_ref) {
-                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
-                        break;
-                    }
-
-                    auto contained_type = (sdk::Type_CLASS*)utility::calculate_absolute((*type_load_ref) + 3);
-
-                    if (contained_type == nullptr || contained_type->descriptor == nullptr ||
-                        contained_type->descriptor->name == nullptr) {
-                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
-                        break;
-                    }
-
-                    // nope
-                    if (contained_type->descriptor->type_index != (uint32_t)sdk::DescriptorType::CLASS) {
-                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
-                        break;
-                    }
-
-                    auto contained_name = std::string{contained_type->descriptor->name};
-                    auto proper_class = class_from_name(g, contained_name);
-
-                    std::stringstream proper_typename;
-                    proper_class->generate_typename_for(proper_typename, proper_class);
-
-                    std::string proper_name{"sdk::TEntityRef<"};
-                    proper_name += proper_typename.str() + ">";
-
-                    c->variable(field_name)
-                        ->type(g->generic_type(proper_name)->template_type(proper_class)->size(0x10))
-                        ->offset(field->field_offset);
-                }
-
-                break;
+                } break;
                 case sdk::DescriptorType::ENUM:
-                    c->variable(field_name)->type(enum_from_name(g, descriptor->name))->offset(field->field_offset);
+                    c->variable(field_name)->type(t)->offset(field->field_offset);
                     break;
                 case sdk::DescriptorType::PRIMITIVE: {
-
-                    std::string type_name{""};
-
-                    if (ft_name == "char") {
-                        type_name = "char";
-                    } else if (ft_name == "bool") {
-                        type_name = "bool";
-                    } else if (ft_name == "uint8") {
-                        type_name = "uint8_t";
-                    } else if (ft_name == "int8") {
-                        type_name = "int8_t";
-                    } else if (ft_name == "uint16") {
-                        type_name = "uint16_t";
-                    } else if (ft_name == "int16") {
-                        type_name = "int16_t";
-                    } else if (ft_name == "uint32") {
-                        type_name = "uint32_t";
-                    } else if (ft_name == "int32") {
-                        type_name = "int32_t";
-                    } else if (ft_name == "uint64") {
-                        type_name = "uint64_t";
-                    } else if (ft_name == "int64") {
-                        type_name = "int64_t";
-                    } else if (ft_name == "float32") {
-                        type_name = "float";
-                    } else if (ft_name == "float64") {
-                        type_name = "double";
-                    } else {
+                    if (t == nullptr) {
                         if (field->field_offset != 0 && field->get_field == nullptr) {
                             c->array_(field_name)
                                 ->count(descriptor->size)
@@ -294,11 +368,11 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     if (field->field_offset == 0 && field->get_field != nullptr) {
                         auto f = c->function("get_" + field_name);
 
-                        f->param("out")->type(g->type(type_name)->ref());
+                        f->param("out")->type(t->ref());
                         f->procedure(std::string{"((void(*)(void*, void*))"} +
                                      std::to_string((uintptr_t)field->get_field) + ")(this, &out);");
                     } else {
-                        c->variable(field_name)->offset(field->field_offset)->type(type_name);
+                        c->variable(field_name)->offset(field->field_offset)->type(t);
                     }
                 }
 
