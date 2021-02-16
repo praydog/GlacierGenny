@@ -1,5 +1,5 @@
 # GlacierGenny
-Generates a C++ SDK for Glacier Engine games (HITMAN3 only right now) 
+Generates a C++ SDK for Glacier Engine games. Tested on HITMAN2 and HITMAN3.
 
 Uses [sdkgenny](https://github.com/cursey/sdkgenny) by [@cursey](https://github.com/cursey).
 
