@@ -9,7 +9,7 @@ enum class TypeType : uint16_t {
 };
 
 enum class DescriptorType : uint32_t {
-    UNKNOWN = 0,
+    VARIANT = 0,
     CLASS = 4,
     T_ENTITY_REF = 5,
     T_RESOURCE_PTR = 6,

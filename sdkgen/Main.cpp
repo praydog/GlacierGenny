@@ -170,6 +170,20 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
             switch ((sdk::TypeType)ft->type_type) {
             case sdk::TypeType::EMBEDDED: {
                 switch ((sdk::DescriptorType)descriptor->type_index) {
+                case sdk::DescriptorType::VARIANT:
+                    if (ft_name == "ZString") {
+                        c->variable(field_name)
+                            ->type(g->type("sdk::ZString")->size(descriptor->size))
+                            ->offset(field->field_offset);
+                    } else if (ft_name == "ZVariant" && descriptor->size == 0x10) {
+                        auto z_variant = g->class_("ZVariant")->size(0x10);
+
+                        c->variable(field_name)->type(z_variant)->offset(field->field_offset);
+                    } else {
+                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                    }
+
+                    break;
                 case sdk::DescriptorType::CLASS: {
                     if (field->field_offset == 0 && field->get_field != nullptr) {
                         auto f = c->function("get_" + field_name);
@@ -240,7 +254,7 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     break;
                 case sdk::DescriptorType::PRIMITIVE: {
 
-                    std::string type_name = "";
+                    std::string type_name{""};
 
                     if (ft_name == "char") {
                         type_name = "char";
@@ -268,7 +282,10 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                         type_name = "double";
                     } else {
                         if (field->field_offset != 0 && field->get_field == nullptr) {
-                            c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                            c->array_(field_name)
+                                ->count(descriptor->size)
+                                ->offset(field->field_offset)
+                                ->type("uint8_t");
                         }
 
                         break;
@@ -350,6 +367,7 @@ extern "C" __declspec(dllexport) void generate() {
     genny::Sdk sdk{};
     auto g = sdk.global_ns();
 
+    sdk.include("sdk/ZString.hpp");
     sdk.include("sdk/TEntityRef.hpp");
     sdk.include("sdk/TArray.hpp");
     sdk.include("cstdint");
