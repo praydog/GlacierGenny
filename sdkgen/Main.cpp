@@ -176,14 +176,16 @@ genny::Type* type_from_primitive(genny::Namespace* g, sdk::BaseTypeDescriptor* d
 template <typename T = genny::Type> T* type_from_descriptor(genny::Namespace* g, sdk::BaseTypeDescriptor* descriptor);
 
 genny::GenericType* type_from_array(genny::Namespace* g, sdk::TArrayDescriptor* descriptor) {
+    auto generic_tarray = (genny::GenericType*)g->generic_type("sdk::TArray<void*>")->size(0x18);
+
     if (descriptor->contained_type == nullptr || descriptor->contained_type->descriptor == nullptr) {
-        return nullptr;
+        return generic_tarray;
     }
 
     auto inner = type_from_descriptor(g, descriptor->contained_type->descriptor);
 
     if (inner == nullptr) {
-        return nullptr;
+        return generic_tarray;
     }
 
     auto contained_name = std::string{descriptor->contained_type->descriptor->name};
@@ -341,14 +343,7 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     }
                 } break;
                 case sdk::DescriptorType::T_ARRAY: {
-                    if (t == nullptr) {
-                        c->variable(field_name)
-                            ->type(g->generic_type("sdk::TArray<void*>")->size(0x18))
-                            ->offset(field->field_offset);
-                        break;
-                    } else {
-                        c->variable(field_name)->type(t)->offset(field->field_offset);
-                    }
+                    c->variable(field_name)->type(t)->offset(field->field_offset);
                 } break;
                 case sdk::DescriptorType::ENUM:
                     c->variable(field_name)->type(t)->offset(field->field_offset);
