@@ -162,3 +162,154 @@ public:
     char pad_0004[12];           // 0x0004
     class Type_CLASS* type_info; // 0x0010
 };                               // Size: 0x0018
+
+class TEntityRef_RECLASS {
+public:
+    class ZCameraEntity_RECLASS* base; // 0x0000
+    void* ptr;                         // 0x0008
+};                                     // Size: 0x0010
+
+class N000000F7 {
+public:
+    char pad_0000[40];                  // 0x0000
+    class TEntityRef_RECLASS N00000101; // 0x0028
+    char pad_0038[8];                   // 0x0038
+};                                      // Size: 0x0040
+
+class ZCameraEntity_RECLASS {
+public:
+    char pad_0000[216]; // 0x0000
+    uint32_t N00000142; // 0x00D8
+    float N00000151;    // 0x00DC
+    float N00000143;    // 0x00E0
+    float N000001D7;    // 0x00E4
+    float N00000144;    // 0x00E8
+    float N000001DB;    // 0x00EC
+    float N00000145;    // 0x00F0
+    char pad_00F4[380]; // 0x00F4
+};                      // Size: 0x0270
+
+class ZActiveCameraController_RECLASS {
+public:
+    char pad_0000[24];                  // 0x0000
+    class TEntityRef_RECLASS N000001E7; // 0x0018
+    class TEntityRef_RECLASS N000001E8; // 0x0028
+};                                      // Size: 0x0038
+
+class ZHitman5_RECLASS {
+public:
+    char pad_0000[4312];                     // 0x0000
+    class TEntityRef_RECLASS m_rMainCammera; // 0x10D8
+    char pad_10E8[864];                      // 0x10E8
+};                                           // Size: 0x1448
+
+class ZHM5MainCamera_RECLASS : public ZCameraEntity_RECLASS {
+public:
+    bool active;        // 0x0270
+    char pad_0271[463]; // 0x0271
+};                      // Size: 0x0440
+
+class ZActorManager {
+public:
+    char pad_0000[8];                   // 0x0000
+    class TEntityRef_RECLASS N00000B49; // 0x0008
+    char pad_0018[1072];                // 0x0018
+};                                      // Size: 0x0448
+
+class SaveSystem {
+public:
+    char pad_0000[200];                        // 0x0000
+    class N00000E18 (*save_systems_start)[64]; // 0x00C8
+    void* save_systems_end;                    // 0x00D0
+    char pad_00D8[872];                        // 0x00D8
+};                                             // Size: 0x0440
+
+class N00000E18 {
+public:
+    class N00000E40* game_system; // 0x0000
+    uint32_t hash;                // 0x0008
+    char pad_000C[4];             // 0x000C
+};                                // Size: 0x0010
+
+class N00000E40 {
+public:
+    char pad_0000[8]; // 0x0000
+};                    // Size: 0x0008
+
+class ZEntityManager {
+public:
+    char pad_0000[16];                       // 0x0000
+    class N00000E96* N00000E46;              // 0x0010
+    char pad_0018[16];                       // 0x0018
+    int32_t num_entities;                    // 0x0028
+    int32_t N00000F37;                       // 0x002C
+    int32_t max_entities;                    // 0x0030
+    char pad_0034[4];                        // 0x0034
+    class N00000FEC (*entities_hashes)[245]; // 0x0038
+    class N00000F7F (*entities_array)[711];  // 0x0040
+    char pad_0048[256];                      // 0x0048
+};                                           // Size: 0x0148
+
+class N00000E96 {
+public:
+    class N00000EDC* N00000E97; // 0x0000
+    char pad_0008[264];         // 0x0008
+};                              // Size: 0x0110
+
+class N00000EDC {
+public:
+    char pad_0000[8]; // 0x0000
+};                    // Size: 0x0008
+
+class N00000F7F {
+public:
+    int32_t N00000F80; // 0x0000
+    char pad_0004[20]; // 0x0004
+};                     // Size: 0x0018
+
+class N00000FEC {
+public:
+    char pad_0000[32]; // 0x0000
+};                     // Size: 0x0020
+
+class ModuleDescriptor {
+public:
+    uint16_t id_maybe;            // 0x0000
+    char pad_0002[6];             // 0x0002
+    char* name;                   // 0x0008
+    class ZSimpleModuleBase* mod; // 0x0010
+};                                // Size: 0x0018
+
+class ZGlacierModuleManager {
+public:
+    class ZApplicationEngineWin32* application_engine; // 0x0000
+    char pad_0008[8];                                  // 0x0008
+    uint32_t num_modules;                              // 0x0010
+    char pad_0014[4];                                  // 0x0014
+    class ModuleDescriptor modules[72];                // 0x0018
+};                                                     // Size: 0x06D8
+
+class ZSimpleModuleBase {
+public:
+    char pad_0000[16];                  // 0x0000
+    char* name;                         // 0x0010
+    char pad_0018[72];                  // 0x0018
+    class ModuleInterfaces* interfaces; // 0x0060
+};                                      // Size: 0x0068
+
+class ModuleInterfaces {
+public:
+    class IComponentInterface_RECLASS* (*systems)[64]; // 0x0000
+    void* systems_last;                                // 0x0008
+    void* systems_allocated_last;                      // 0x0010
+};                                                     // Size: 0x0018
+
+class IComponentInterface_RECLASS {
+public:
+    char pad_0000[8]; // 0x0000
+};                    // Size: 0x0008
+
+class ZApplicationEngineWin32 {
+public:
+    char pad_0000[8]; // 0x0000
+};                    // Size: 0x0008

@@ -2,6 +2,8 @@ project(SDKGEN)
 
 set(SDK_SRC
     sdk/Enums.hpp
+    sdk/GlacierModuleManager.hpp
+    sdk/GlacierModuleManager.cpp
     sdk/ReClass.hpp
     sdk/ReClass_Internal.hpp
     sdk/TArray.hpp
