@@ -1,8 +1,10 @@
 #include <iostream>
 
+#include <utility/RTTI.hpp>
 #include <utility/Scan.hpp>
 
 #include "GlacierModuleManager.hpp"
+#include "TArray.hpp"
 
 sdk::GlacierModuleManager* sdk::GlacierModuleManager::get() {
     // Search for strings like "Runtime.Entity" around the function call
@@ -40,4 +42,45 @@ sdk::ZSimpleModuleBase* sdk::GlacierModuleManager::find_module(const std::string
     }
 
     return nullptr;
+}
+
+sdk::GlacierModuleManager::ModuleMap sdk::GlacierModuleManager::generate_module_map() {
+    sdk::GlacierModuleManager::ModuleMap out{};
+
+    for (auto& desc : *this) {
+        auto mod = desc.mod;
+
+        if (mod == nullptr || desc.name == nullptr) {
+            continue;
+        }
+
+        auto ti_mod = utility::get_type_info(mod);
+
+        if (ti_mod == nullptr) {
+            continue;
+        }
+
+        printf("0x%p %s: %s\n", mod, desc.name, utility::get_demangled_name(ti_mod).c_str());
+
+        auto interfaces = (sdk::TArray<sdk::IComponentInterface_RECLASS*>*)mod->interfaces;
+
+        if (interfaces == nullptr || IsBadReadPtr(interfaces, sizeof(void*))) {
+            continue;
+        }
+
+        for (auto intfc : *interfaces) {
+            auto ti = utility::get_type_info(intfc);
+
+            if (ti == nullptr) {
+                continue;
+            }
+
+            auto name = utility::get_demangled_name(ti);
+            printf(" 0x%p %s\n", intfc, name.c_str());
+
+            out[desc.name][name] = intfc;
+        }
+    }
+
+    return out;
 }
