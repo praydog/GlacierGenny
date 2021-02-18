@@ -18,4 +18,5 @@ endforeach(OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES)
 # Statically compile runtime
 string(REGEX REPLACE "/MD" "/MT" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 
+add_subdirectory(shared)
 add_subdirectory(sdkgen)
