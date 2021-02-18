@@ -323,6 +323,14 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
                     break;
                 case sdk::DescriptorType::CLASS: {
+                    if (field->set_field != nullptr) {
+                        auto f = c->function("set_" + field_name);
+
+                        f->param("in")->type(t->ref());
+                        f->procedure(std::string{"((void(*)(void*, void*))"} +
+                                     std::to_string((uintptr_t)field->set_field) + ")(this, &in);");
+                    }
+
                     if (field->field_offset == 0 && field->get_field != nullptr) {
                         auto f = c->function("get_" + field_name);
 
@@ -360,6 +368,14 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                         }
 
                         break;
+                    }
+
+                    if (field->set_field != nullptr) {
+                        auto f = c->function("set_" + field_name);
+
+                        f->param("in")->type(t->ref());
+                        f->procedure(std::string{"((void(*)(void*, void*))"} +
+                                     std::to_string((uintptr_t)field->set_field) + ")(this, &in);");
                     }
 
                     if (field->field_offset == 0 && field->get_field != nullptr) {
