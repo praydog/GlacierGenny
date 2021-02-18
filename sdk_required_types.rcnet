@@ -1652,6 +1652,9 @@
     </class>
     <class uuid="SauUkbc7p0Kw0Q33fnffZg==" name="N00000778" comment="" address="140000000">
       <node type="Hex64Node" name="N00000779" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000ACD" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000ACE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000ACF" comment="" hidden="false" />
     </class>
     <class uuid="77KJu+au1EqFmfMSkwmjxA==" name="N000007A5" comment="" address="140000000">
       <node type="PointerNode" name="start" comment="" hidden="false">
@@ -1668,7 +1671,7 @@
       <node type="Hex64Node" name="N00000841" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000842" comment="" hidden="false" />
     </class>
-    <class uuid="0wFUjfXiC0m8DD5oWo3i9g==" name="ZSpatialEntity_RECLASS" comment="" address="2B9B68F0">
+    <class uuid="0wFUjfXiC0m8DD5oWo3i9g==" name="ZSpatialEntity_RECLASS" comment="" address="2F229840">
       <node type="Hex64Node" name="N000008B8" comment="" hidden="false" />
       <node type="ClassInstanceNode" name="N000008B9" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
       <node type="Hex64Node" name="N000008BA" comment="" hidden="false" />
@@ -1852,11 +1855,18 @@
       <node type="Hex64Node" name="N000009AC" comment="" hidden="false" />
       <node type="Hex64Node" name="N000009AD" comment="" hidden="false" />
     </class>
-    <class uuid="7ps5M6BfsEuQtzhWTcyj3g==" name="N000008C1" comment="" address="140000000">
-      <node type="Hex64Node" name="N000008C2" comment="" hidden="false" />
+    <class uuid="n3+f1nhK+0+Se7jv6IzD2g==" name="ZActorProviderDirect_RECLASS" comment="" address="2F221A50">
+      <node type="Hex64Node" name="N00000AB1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000AB2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000AB3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000AB4" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00000AB5" comment="" hidden="false" reference="CyZ6TqjI/k+w4rpfdKNVMA==" />
     </class>
-    <class uuid="I0LaQMvibECHB1AgKE0Byw==" name="N000009F7" comment="" address="140000000">
-      <node type="Hex64Node" name="N000009F8" comment="" hidden="false" />
+    <class uuid="+n+wy0MoUkaDXU1qdar/Dw==" name="ClassTypeOut" comment="" address="140000000">
+      <node type="PointerNode" name="klass" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000AFC" comment="" hidden="false" reference="TcAH9MGf9EmQuLlXAIKZIQ==" />
+      </node>
+      <node type="PointerNode" name="This" comment="" hidden="false" />
     </class>
   </classes>
 </reclass>

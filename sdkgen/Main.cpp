@@ -3,6 +3,7 @@
 
 #include <windows.h>
 
+#include "utility/RTTI.hpp"
 #include "utility/Scan.hpp"
 
 #include "Genny.hpp"
@@ -457,6 +458,7 @@ extern "C" __declspec(dllexport) void generate() {
     sdk.include("sdk/ZString.hpp");
     sdk.include("sdk/TEntityRef.hpp");
     sdk.include("sdk/TArray.hpp");
+    sdk.include("sdk/ReClass.hpp");
     sdk.include("cstdint");
 
     g->type("int8_t")->size(1);
@@ -501,6 +503,18 @@ extern "C" __declspec(dllexport) void generate() {
             generate_enum(g, t.name, (sdk::EnumDescriptor*)t.type_info->descriptor);
         }
     }
+
+    // most types inherit from this class, so we should map it out
+    auto IComponentInterface = class_from_name(g, "IComponentInterface");
+    IComponentInterface->virtual_function("~IComponentInterface")->vtable_index(0)->returns(g->type("")->size(0));
+    IComponentInterface->virtual_function("GetType")->vtable_index(1)->returns(g->type("sdk::ClassTypeOut*")->size(8))->param("out")->type(g->type("sdk::ClassTypeOut*")->size(8));
+    IComponentInterface->virtual_function("AddReference")->vtable_index(2)->returns(g->type("int32_t"));
+    IComponentInterface->virtual_function("Release")->vtable_index(3)->returns(g->type("int32_t"));
+    IComponentInterface->virtual_function("GetAddressOfParent")->vtable_index(4)->returns(g->type("void*"))->param("t")->type(g->type("sdk::Type_CLASS*")->size(8));
+
+    //a very important type, so we have to manually map it out ourselves
+    auto ZEntityImpl = class_from_name(g, "ZEntityImpl");
+    ZEntityImpl->variable("m_Impl")->type(g->type("sdk::ZEntityImpl_Inner")->size(sizeof(sdk::ZEntityImpl_Inner)))->offset(8);
 
     sdk.generate(SDK_OUTPUT "/sdk");
 

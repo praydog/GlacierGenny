@@ -348,8 +348,8 @@ public:
     char pad_0000[16];                // 0x0000
     class N00001319 entity_lists[27]; // 0x0010 0 = doors, 1 = items, 2 = volume triggers 3 = math stuff...?, 8 = math
                                       // distance stuff, 16 = evacuation nodes, 24 = bone attach
-    char pad_05F8[40];                // 0x05F8
-};                                    // Size: 0x0620
+    char pad_05F8[40]; // 0x05F8
+};                     // Size: 0x0620
 
 class ZEntityImpl_Inner {
 public:
@@ -460,8 +460,8 @@ public:
 
 class N00000778 {
 public:
-    char pad_0000[8]; // 0x0000
-};                    // Size: 0x0008
+    char pad_0000[32]; // 0x0000
+};                     // Size: 0x0020
 
 class N000007A5 {
 public:
@@ -494,12 +494,14 @@ public:
     char pad_01D0[912];                         // 0x01D0
 };                                              // Size: 0x0560
 
-class N000008C1 {
+class ZActorProviderDirect_RECLASS {
 public:
-    char pad_0000[8]; // 0x0000
-};                    // Size: 0x0008
+    char pad_0000[32];                  // 0x0000
+    class TEntityRef_RECLASS N00000AB5; // 0x0020
+};                                      // Size: 0x0030
 
-class N000009F7 {
+class ClassTypeOut {
 public:
-    char pad_0000[8]; // 0x0000
-};                    // Size: 0x0008
+    class Type_CLASS* klass; // 0x0000
+    void* This;              // 0x0008
+};                           // Size: 0x0010
