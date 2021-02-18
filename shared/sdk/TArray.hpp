@@ -4,7 +4,7 @@ namespace sdk {
 template <typename T> class TArray {
 public:
     bool is_iterable() const {
-        return start != nullptr && end != nullptr && allocated_end != nullptr &&
+        return start != nullptr && last != nullptr && allocated_end != nullptr &&
                (uintptr_t)allocated_end != 0x4000000000000000;
     }
 
@@ -21,7 +21,7 @@ public:
             return nullptr;
         }
 
-        return end;
+        return last;
     }
 
 public:
