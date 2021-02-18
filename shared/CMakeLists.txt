@@ -28,6 +28,8 @@ set(UTILITY_SRC
     utility/Patch.cpp
     utility/Pattern.hpp
     utility/Pattern.cpp
+    utility/RTTI.hpp
+    utility/RTTI.cpp
     utility/Scan.hpp
     utility/Scan.cpp
     utility/String.hpp
