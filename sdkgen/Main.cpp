@@ -241,11 +241,11 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
 
     auto get_short_name = c->static_function("get_short_name");
     get_short_name->returns(g->type("const char*")->size(8));
-    get_short_name->procedure(std::string{"return \""} + split(class_name, ".").back() + "\"");
+    get_short_name->procedure(std::string{"return \""} + split(class_name, ".").back() + "\";");
 
     auto get_full_name = c->static_function("get_full_name");
     get_full_name->returns(g->type("const char*")->size(8));
-    get_full_name->procedure(std::string{"return \""} + class_name + "\"");
+    get_full_name->procedure(std::string{"return \""} + class_name + "\";");
 
     // Inheritance
     if (klass->base_inheritance != nullptr && klass->num_inheritance > 0) {
