@@ -30,6 +30,18 @@ public:
         return last;
     }
 
+    size_t size() {
+        return ((uintptr_t)end() - (uintptr_t)begin()) / sizeof(T);
+    }
+
+    size_t capacity() {
+        if (is_inline()) {
+            return ((uintptr_t)&allocated_end - (uintptr_t)&start) / sizeof(T);
+        }
+
+        return ((uintptr_t)allocated_end - (uintptr_t)begin()) / sizeof(T);
+    }
+
 public:
     T* start;
     T* last;

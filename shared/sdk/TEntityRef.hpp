@@ -3,7 +3,7 @@
 namespace sdk {
 template <typename T> class TEntityRef {
 public:
-    class sdk::ZEntityImpl_Inner* base; // subtract by 8 to get the top level class object...?
+    struct sdk::ZEntityImpl_Inner* base; // subtract by 8 to get the top level class object...?
     T* ptr; // base + offset to inheritance base (e.g. class Foo : public T, where the base of T is what ptr is pointing to)
 
     template <typename B>
@@ -12,7 +12,7 @@ public:
             return nullptr;
         }
 
-        return (B*)(base - 1);
+        return (B*)((uintptr_t)base - sizeof(void*));
     }
 };
 } // namespace sdk

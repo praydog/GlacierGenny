@@ -12,6 +12,7 @@ set(SDK_SRC
     sdk/TypeRegistry.cpp
     sdk/Pool.hpp
     sdk/Pool.cpp
+    sdk/ZEntityImpl.hpp
     sdk/ZString.hpp
 )
 

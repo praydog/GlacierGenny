@@ -3,6 +3,10 @@
 #include <cstdint>
 
 namespace sdk {
+struct Vector2 {
+    float x, y;
+};
+
 struct Vector3 {
     float x, y, z;
 };
@@ -12,3 +16,4 @@ struct Vector3 {
 
 #include "Enums.hpp"
 #include "TypeRegistry.hpp"
+#include "ZEntityImpl.hpp"
