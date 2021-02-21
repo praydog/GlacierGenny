@@ -44,4 +44,6 @@ public:
         return (T*)entry->type_info;
     }
 };
+
+bool is_a(sdk::Type_CLASS* a, sdk::Type_CLASS* b);
 } // namespace sdk

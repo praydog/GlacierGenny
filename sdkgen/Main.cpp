@@ -240,13 +240,21 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
     auto c = class_from_name(g, class_name);
     c->size(klass->size);
 
+    // get_short_name method
     auto get_short_name = c->static_function("get_short_name");
     get_short_name->returns(g->type("const char*")->size(8));
     get_short_name->procedure(std::string{"return \""} + split(class_name, ".").back() + "\";");
 
+    // get_full_name method
     auto get_full_name = c->static_function("get_full_name");
     get_full_name->returns(g->type("const char*")->size(8));
     get_full_name->procedure(std::string{"return \""} + class_name + "\";");
+
+    // static_class method
+    auto static_class = c->static_function("static_class");
+    static_class->returns(g->type("sdk::Type_CLASS*")->size(8));
+    static_class->procedure(std::string{"static auto t = sdk::TypeRegistry::get()->get_descriptor("} + c->name() +
+                            "::get_full_name());\nreturn t;");
 
     // Inheritance
     if (klass->base_inheritance != nullptr && klass->num_inheritance > 0) {
@@ -520,6 +528,15 @@ extern "C" __declspec(dllexport) void generate() {
         ->returns(g->type("void*"))
         ->param("t")
         ->type(g->type("sdk::Type_CLASS*")->size(8));
+
+    auto is_a = IComponentInterface->function("is_a")->returns(g->type("bool"));
+    is_a->param("t")->type(g->type("sdk::Type_CLASS*")->size(8));
+
+    std::ostringstream os{};
+    os << "sdk::ClassTypeOut ct{};\n";
+    os << "this->GetType(&ct);\n";
+    os << "return sdk::is_a(ct.klass, t);\n";
+    is_a->procedure(os.str());
 
     // a very important type, so we have to manually map it out ourselves
     auto ZEntityImpl = class_from_name(g, "ZEntityImpl");
