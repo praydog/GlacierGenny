@@ -336,9 +336,12 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     if (field->set_field != nullptr) {
                         auto f = c->function("set_" + field_name);
 
+                        std::stringstream procedure{};
+                        procedure << "((void(*)(void*, void*))" << std::to_string((uintptr_t)field->set_field) << ")";
+                        procedure << "((void*)((uintptr_t)this + " << field->field_offset << "), &in);";
+
                         f->param("in")->type(t->ref());
-                        f->procedure(std::string{"((void(*)(void*, void*))"} +
-                                     std::to_string((uintptr_t)field->set_field) + ")(this, &in);");
+                        f->procedure(procedure.str());
                     }
 
                     if (field->field_offset == 0 && field->get_field != nullptr) {
@@ -383,9 +386,12 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     if (field->set_field != nullptr) {
                         auto f = c->function("set_" + field_name);
 
+                        std::stringstream procedure{};
+                        procedure << "((void(*)(void*, void*))" << std::to_string((uintptr_t)field->set_field) << ")";
+                        procedure << "((void*)((uintptr_t)this + " << field->field_offset << "), &in);";
+
                         f->param("in")->type(t->ref());
-                        f->procedure(std::string{"((void(*)(void*, void*))"} +
-                                     std::to_string((uintptr_t)field->set_field) + ")(this, &in);");
+                        f->procedure(procedure.str());
                     }
 
                     if (field->field_offset == 0 && field->get_field != nullptr) {
