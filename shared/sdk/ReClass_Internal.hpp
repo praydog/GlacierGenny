@@ -203,20 +203,27 @@ public:
 
 class ZCameraEntity_RECLASS : public ZBoundedEntity_RECLASS {
 public:
-    char pad_00B8[23];  // 0x00B8
-    uint8_t N00001284;  // 0x00CF
-    char pad_00D0[8];   // 0x00D0
-    uint32_t N00000142; // 0x00D8
-    float N00000151;    // 0x00DC
-    float N00000143;    // 0x00E0
-    float N000001D7;    // 0x00E4
-    float N00000144;    // 0x00E8
-    float N000001DB;    // 0x00EC
-    float N00000145;    // 0x00F0
-    char pad_00F4[27];  // 0x00F4
-    bool N000011D5;     // 0x010F
-    char pad_0110[352]; // 0x0110
-};                      // Size: 0x0270
+    char pad_00B8[23];         // 0x00B8
+    uint8_t N00001284;         // 0x00CF
+    char pad_00D0[8];          // 0x00D0
+    uint32_t N00000142;        // 0x00D8
+    float N00000151;           // 0x00DC
+    float N00000143;           // 0x00E0
+    float N000001D7;           // 0x00E4
+    float N00000144;           // 0x00E8
+    float m_fNearZ;            // 0x00EC
+    float m_fFarZ;             // 0x00F0
+    char pad_00F4[12];         // 0x00F4
+    float N00000147;           // 0x0100
+    float N000001E1;           // 0x0104
+    float N000011D2;           // 0x0108
+    char pad_010C[3];          // 0x010C
+    bool N000011D5;            // 0x010F
+    char pad_0110[68];         // 0x0110
+    float m_fDepthExportNearZ; // 0x0154
+    float m_fDepthExportFarZ;  // 0x0158
+    char pad_015C[276];        // 0x015C
+};                             // Size: 0x0270
 
 class ZActiveCameraController_RECLASS {
 public:
@@ -239,15 +246,18 @@ public:
 class ZHM5MainCamera_RECLASS : public ZCameraEntity_RECLASS {
 public:
     bool active;                                                  // 0x0270
-    char pad_0271[31];                                            // 0x0271
+    char pad_0271[15];                                            // 0x0271
+    class ZHM53rdPersonCamProfile* N00000594;                     // 0x0280
+    char pad_0288[8];                                             // 0x0288
     class ZHM5CameraProfileBlendDatabase_RECLASS* blend_database; // 0x0290
     char pad_0298[16];                                            // 0x0298
     class TEntityRef_RECLASS peek;                                // 0x02A8
     char pad_02B8[24];                                            // 0x02B8
-    class ZHM53rdPersonCamera* third_person_cam;                  // 0x02D0
-    char pad_02D8[8];                                             // 0x02D8
+    class ZHM53rdPersonCamera* active_camera;                     // 0x02D0
+    class ZHM53rdPersonCamera* third_person_cam;                  // 0x02D8
     class ZHM5AnimCamera* anim_cam;                               // 0x02E0
-    char pad_02E8[1164];                                          // 0x02E8
+    class ZHM5PeekCamera* peek_cam;                               // 0x02E8
+    char pad_02F0[1156];                                          // 0x02F0
     float N000013D9;                                              // 0x0774
     char pad_0778[124];                                           // 0x0778
 };                                                                // Size: 0x07F4
@@ -603,26 +613,101 @@ public:
     char pad_00AD[3]; // 0x00AD
 };                    // Size: 0x00B0
 
-class ZHM53rdPersonCamera {
+class ZHM5CameraBaseFunc {
 public:
-    char pad_0000[16];                    // 0x0000
-    class TEntityRef_RECLASS main_camera; // 0x0010
-    char pad_0020[12];                    // 0x0020
-    Vector2 rotation;                     // 0x002C
-    char pad_0034[4];                     // 0x0034
-    int32_t N00001427;                    // 0x0038
-    int32_t N000015D1;                    // 0x003C
-    char pad_0040[464];                   // 0x0040
-    uint32_t N00001462;                   // 0x0210
-    char pad_0214[604];                   // 0x0214
-    float N000014AE;                      // 0x0470
-    char pad_0474[36];                    // 0x0474
-    float trace_fraction;                 // 0x0498
-    char pad_049C[28];                    // 0x049C
-    float N000014B7;                      // 0x04B8
-    float N0000162D;                      // 0x04BC
-    char pad_04C0[1296];                  // 0x04C0
-};                                        // Size: 0x09D0
+    char pad_0000[8];                          // 0x0000
+    void* N00000B1F;                           // 0x0008
+    class ZHM5MainCamera_RECLASS* main_camera; // 0x0010
+    class TEntityRef_RECLASS hitman_character; // 0x0018
+    int32_t camera_type_maybe;                 // 0x0028
+    Vector2 rotation;                          // 0x002C
+    char pad_0034[476];                        // 0x0034
+};                                             // Size: 0x0210
+
+class ZMap {
+public:
+    char pad_0000[16]; // 0x0000
+};                     // Size: 0x0010
+
+class ZMapPieceWiseLinear : public ZMap {
+public:
+    char pad_0010[4]; // 0x0010
+    float N00000F82;  // 0x0014
+    float N00000F75;  // 0x0018
+    float N00000F84;  // 0x001C
+};                    // Size: 0x0020
+
+class ZMapPoly : public ZMap {
+public:
+    int32_t N00000F7E; // 0x0010
+    char pad_0014[4];  // 0x0014
+};                     // Size: 0x0018
+
+class UnknownCameraData {
+public:
+    float N00000E09;     // 0x0000
+    float height1;       // 0x0004
+    float stick_length1; // 0x0008
+    float radius1;       // 0x000C
+    float radius2;       // 0x0010
+    float interp_t;      // 0x0014
+    float fov1;          // 0x0018
+    float fov2;          // 0x001C
+    char pad_0020[16];   // 0x0020
+    float stick_length2; // 0x0030
+    float stick_length3; // 0x0034
+    float N0000187D;     // 0x0038
+    float N000018C0;     // 0x003C
+    char pad_0040[8];    // 0x0040
+    float height2;       // 0x0048
+    float height3;       // 0x004C
+    float N00000E12;     // 0x0050
+    float N00001885;     // 0x0054
+    float N00000E13;     // 0x0058
+    float N00001887;     // 0x005C
+    float N00000E14;     // 0x0060
+    float N00001889;     // 0x0064
+    float N00000E15;     // 0x0068
+    float N0000188B;     // 0x006C
+    float N00000E16;     // 0x0070
+    float N0000188D;     // 0x0074
+    float N00000E17;     // 0x0078
+    char pad_007C[20];   // 0x007C
+    float N00000E1A;     // 0x0090
+    float N00001895;     // 0x0094
+    float N00000E1B;     // 0x0098
+    float N00001897;     // 0x009C
+};                       // Size: 0x00A0
+
+class N00000FDD {
+public:
+    int32_t current_profile; // 0x0000
+    char pad_0004[124];      // 0x0004
+    float N000014AE;         // 0x0080
+    char pad_0084[12];       // 0x0084
+};                           // Size: 0x0090
+
+class ZHM53rdPersonCamera : public ZHM5CameraBaseFunc {
+public:
+    uint32_t N00001462;                          // 0x0210
+    char pad_0214[28];                           // 0x0214
+    class ZMapPieceWiseLinear N00000F6E;         // 0x0230
+    class ZMapPieceWiseLinear N00000F72;         // 0x0250
+    class ZMapPoly N00000F74;                    // 0x0270
+    char pad_0288[112];                          // 0x0288
+    float N0000147E;                             // 0x02F8
+    char pad_02FC[20];                           // 0x02FC
+    class UnknownCameraData active_profile_data; // 0x0310
+    char pad_03B0[64];                           // 0x03B0
+    class N00000FDD data_to_copy;                // 0x03F0
+    char pad_0480[24];                           // 0x0480
+    float trace_fraction;                        // 0x0498
+    char pad_049C[20];                           // 0x049C
+    class ZMapPoly N00001118;                    // 0x04B0
+    char pad_04C8[936];                          // 0x04C8
+    int32_t camera_profile;                      // 0x0870
+    char pad_0874[348];                          // 0x0874
+};                                               // Size: 0x09D0
 
 class TArrayTEntityRef {
 public:
@@ -631,40 +716,51 @@ public:
     void* allocated_last; // 0x0010
 };                        // Size: 0x0018
 
-class N00000E08 {
+class N0000111A {
 public:
-    char pad_0000[160]; // 0x0000
-};                      // Size: 0x00A0
+    class TEntityRefZHM5GameCamTransition (*first)[256]; // 0x0000
+    void* last;                                          // 0x0008
+    void* last_allocated;                                // 0x0010
+};                                                       // Size: 0x0018
+
+class TEntityRefCameraProfile {
+public:
+    class ZEntityImpl_Inner_RECLASS* base;       // 0x0000
+    class ZHM5GameCamProfileEntity_RECLASS* ptr; // 0x0008
+};                                               // Size: 0x0010
 
 class GameCamProfileDesc {
 public:
-    bool has_data;                    // 0x0000
-    char pad_0001[3];                 // 0x0001
-    float f1;                         // 0x0004
-    float f2;                         // 0x0008
-    char pad_000C[4];                 // 0x000C
-    class TEntityRef_RECLASS profile; // 0x0010
-};                                    // Size: 0x0020
+    bool has_data;                         // 0x0000
+    char pad_0001[3];                      // 0x0001
+    float f1;                              // 0x0004
+    float f2;                              // 0x0008
+    char pad_000C[4];                      // 0x000C
+    class TEntityRefCameraProfile profile; // 0x0010
+};                                         // Size: 0x0020
 
 class N00000E4E {
 public:
-    char pad_0000[8];                          // 0x0000
-    class GameCamProfileDesc main_profile;     // 0x0008
-    class GameCamProfileDesc override_profile; // 0x0028
-    char pad_0048[56];                         // 0x0048
-};                                             // Size: 0x0080
+    char pad_0000[8];                                          // 0x0000
+    class GameCamProfileDesc main_profile;                     // 0x0008
+    class GameCamProfileDesc override_profile;                 // 0x0028
+    char pad_0048[24];                                         // 0x0048
+    class ZHM5GameCamProfileEntity_RECLASS* override_profile2; // 0x0060
+    char pad_0068[16];                                         // 0x0068
+    class ZEntityImpl_Inner_RECLASS* profile_entity;           // 0x0078
+};                                                             // Size: 0x0080
 
 class ZHM5CameraProfileBlendDatabase_RECLASS {
 public:
-    char pad_0000[8];                            // 0x0000
-    class ZEntityImpl_Inner_RECLASS N00000BE3;   // 0x0008
-    class TArrayTEntityRef m_GameCamProfiles;    // 0x0018
-    class TArrayTEntityRef m_GameCamTransitions; // 0x0030
-    class TArrayTEntityRef m_GameCamControls;    // 0x0048
-    uint8_t array_of_ones[56];                   // 0x0060
-    class N00000E08 unknown_data[58];            // 0x0098
-    class N00000E4E m_GameCamProfilesEX[58];     // 0x24D8
-};                                               // Size: 0x41D8
+    char pad_0000[8];                              // 0x0000
+    class ZEntityImpl_Inner_RECLASS N00000BE3;     // 0x0008
+    class TArrayTEntityRef m_GameCamProfiles;      // 0x0018
+    class N0000111A m_GameCamTransitions;          // 0x0030
+    class TArrayTEntityRef m_GameCamControls;      // 0x0048
+    uint8_t cams_in_use[56];                       // 0x0060 sets to 0 in use
+    class UnknownCameraData cams_unknown_data[58]; // 0x0098
+    class N00000E4E m_GameCamProfilesEX[58];       // 0x24D8
+};                                                 // Size: 0x41D8
 
 class ZPeekCameraProfile {
 public:
@@ -675,10 +771,10 @@ public:
     char pad_0098[176];                        // 0x0098
 };                                             // Size: 0x0148
 
-class ZHM5AnimCamera {
+class ZHM5AnimCamera : public ZHM5CameraBaseFunc {
 public:
-    char pad_0000[8]; // 0x0000
-};                    // Size: 0x0008
+    char pad_0210[1328]; // 0x0210
+};                       // Size: 0x0740
 
 class N00000B46 {
 public:
@@ -689,5 +785,116 @@ public:
 
 class ZHM5GameCamProfileEntity_RECLASS {
 public:
-    char pad_0000[1088]; // 0x0000
-};                       // Size: 0x0440
+    char pad_0000[8];                          // 0x0000
+    class ZEntityImpl_Inner_RECLASS N00000ED5; // 0x0008
+    char pad_0018[24];                         // 0x0018
+    bool m_bAlignYawPitch;                     // 0x0030
+    char pad_0031[3];                          // 0x0031
+    float m_fPitchAngle;                       // 0x0034
+    float m_fYawAngle;                         // 0x0038
+    float m_fHeight;                           // 0x003C
+    float m_fStickLength;                      // 0x0040
+    float m_fRadius;                           // 0x0044
+    float m_fRadiusLeft;                       // 0x0048
+    float m_fRotationOffsetY;                  // 0x004C
+    float m_fFov;                              // 0x0050
+    float m_fPrecisionShotFOV;                 // 0x0054
+    float m_fBlendTime;                        // 0x0058
+    float m_fProfileBlendTime;                 // 0x005C
+    float m_fFacingOffsetX;                    // 0x0060
+    float m_fDrag;                             // 0x0064
+    int32_t m_eState;                          // 0x0068
+    char pad_006C[28];                         // 0x006C
+    int32_t m_nPriority;                       // 0x0088
+    float m_fPitchMaxOffset;                   // 0x008C
+    float m_fPitchMinOffset;                   // 0x0090
+    float m_fYawOffset;                        // 0x0094
+    float m_fYawBase;                          // 0x0098
+    bool m_bEnableSmootingAtLimits;            // 0x009C
+    bool m_bApplyLimitsInstantly;              // 0x009D
+    bool m_bYawBlendOutRadius;                 // 0x009E
+    bool m_bYawAnimation;                      // 0x009F
+    float m_fRotationOffsetYYaw;               // 0x00A0
+    float m_fStickLengthYaw;                   // 0x00A4
+    float m_fYawAnimationRange;                // 0x00A8
+    bool m_bPitchAnimation;                    // 0x00AC
+    char pad_00AD[3];                          // 0x00AD
+    float m_fHeightPitch;                      // 0x00B0
+    float m_fPitchAngle0;                      // 0x00B4
+    float m_fPitchAngle1;                      // 0x00B8
+    bool m_bEnablePitchLevelOut;               // 0x00BC
+    bool m_bEnableSmoothing;                   // 0x00BD
+    bool m_bEnableAimAssist;                   // 0x00BE
+    char pad_00BF[1];                          // 0x00BF
+    int32_t m_eCameraControls;                 // 0x00C0
+    bool m_bUseCollisionHeight;                // 0x00C4
+    char pad_00C5[3];                          // 0x00C5
+    float m_fCollisionHeight;                  // 0x00C8
+    float m_fCollisionHeightFrom;              // 0x00CC
+    bool m_bAimPushOut;                        // 0x00D0
+    bool m_bEnableSoftCollision;               // 0x00D1
+    char pad_00D2[2];                          // 0x00D2
+    float m_fTossHeight;                       // 0x00D4
+    char pad_00D8[28];                         // 0x00D8
+};                                             // Size: 0x00F4
+
+class ZHM5PeekCamera {
+public:
+    char pad_0000[8]; // 0x0000
+};                    // Size: 0x0008
+
+class N00000CA2 {
+public:
+    char pad_0000[16];                    // 0x0000
+    class TEntityRef_RECLASS main_camera; // 0x0010
+    char pad_0020[12];                    // 0x0020
+    Vector2 rotation;                     // 0x002C
+    char pad_0034[4];                     // 0x0034
+    int32_t N00001427;                    // 0x0038
+    int32_t N000015D1;                    // 0x003C
+    char pad_0040[464];                   // 0x0040
+};                                        // Size: 0x0210
+
+class ZHM53rdPersonCamProfile {
+public:
+    char pad_0000[8];                          // 0x0000
+    class ZEntityImpl_Inner_RECLASS N00000F3F; // 0x0008
+    float N00000F40;                           // 0x0018
+    float N00000F55;                           // 0x001C
+    float N00000F41;                           // 0x0020
+    float N00000F57;                           // 0x0024
+    float N00000F42;                           // 0x0028
+    char pad_002C[36];                         // 0x002C
+    float N00000F4A;                           // 0x0050
+    char pad_0054[60];                         // 0x0054
+};                                             // Size: 0x0090
+
+class N00001117 {
+public:
+    char pad_0000[8]; // 0x0000
+    float N000014B7;  // 0x0008
+    float N0000162D;  // 0x000C
+    char pad_0010[4]; // 0x0010
+};                    // Size: 0x0014
+
+class TEntityRefZHM5GameCamTransition {
+public:
+    class ZEntityImpl_Inner_RECLASS* base; // 0x0000
+    class ZHM5GameCamTransition* ptr;      // 0x0008
+};                                         // Size: 0x0010
+
+class fdsgdfgsdf : public TEntityRefZHM5GameCamTransition {
+public:
+}; // Size: 0x0010
+
+class ZHM5GameCamTransition {
+public:
+    char pad_0000[8];                          // 0x0000
+    class ZEntityImpl_Inner_RECLASS N00001244; // 0x0008
+    float N00001245;                           // 0x0018
+    bool m_bTransitionWhileMoving;             // 0x001C
+    bool m_bTransitionWhileColliding;          // 0x001D
+    bool m_bAlignToBaseAngles;                 // 0x001E
+    bool m_bIgnoreProfileAlignment;            // 0x001F
+    char pad_0020[48];                         // 0x0020
+};                                             // Size: 0x0050

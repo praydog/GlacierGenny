@@ -47,6 +47,9 @@ add_library(SDKSHARED STATIC
 
 target_compile_options(SDKSHARED PUBLIC /GS-)
 target_compile_features(SDKSHARED PUBLIC cxx_std_17)
-target_link_libraries(SDKSHARED PUBLIC shlwapi)
+target_link_libraries(SDKSHARED PUBLIC shlwapi Zydis)
 
 include_directories(SDKSHARED ${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(SDKSHARED ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/zydis/include)
+
+add_subdirectory(dependencies/zydis)

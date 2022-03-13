@@ -275,19 +275,21 @@
       <node type="FloatNode" name="N00000143" comment="" hidden="false" />
       <node type="FloatNode" name="N000001D7" comment="" hidden="false" />
       <node type="FloatNode" name="N00000144" comment="" hidden="false" />
-      <node type="FloatNode" name="N000001DB" comment="" hidden="false" />
-      <node type="FloatNode" name="N00000145" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fNearZ" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fFarZ" comment="" hidden="false" />
       <node type="Hex32Node" name="N00000146" comment="" hidden="false" />
       <node type="Hex64Node" name="N000011CB" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00000147" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000001E1" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000011D2" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000147" comment="" hidden="false" />
+      <node type="FloatNode" name="N000001E1" comment="" hidden="false" />
+      <node type="FloatNode" name="N000011D2" comment="" hidden="false" />
       <node type="Hex8Node" name="N00000148" comment="" hidden="false" />
       <node type="Hex16Node" name="N000011D4" comment="" hidden="false" />
       <node type="BoolNode" name="N000011D5" comment="" hidden="false" />
       <node type="Hex32Node" name="N000011CF" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000149" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000014A" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000149" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000D4F" comment="" hidden="false" />
+      <node type="FloatNode" name="N0000014A" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000D52" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000014B" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000014C" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000014D" comment="" hidden="false" />
@@ -295,7 +297,8 @@
       <node type="Hex64Node" name="N0000014F" comment="" hidden="false" />
       <node type="Hex32Node" name="N00000153" comment="" hidden="false" />
       <node type="Hex32Node" name="N0000127E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000154" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fDepthExportNearZ" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fDepthExportFarZ" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000155" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000156" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000157" comment="" hidden="false" />
@@ -987,14 +990,16 @@
       <node type="Hex64Node" name="N00000534" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000535" comment="" hidden="false" />
     </class>
-    <class uuid="vyfgOQZEsE+MgjzUKI7SzA==" name="ZHM5MainCamera_RECLASS" comment="" address="2E37AB80">
+    <class uuid="vyfgOQZEsE+MgjzUKI7SzA==" name="ZHM5MainCamera_RECLASS" comment="" address="304AD980">
       <node type="ClassInstanceNode" name="N00000544" comment="" hidden="false" reference="R+kSwbsLbUyZox/fqKXTFA==" />
       <node type="BoolNode" name="active" comment="" hidden="false" />
       <node type="Hex32Node" name="N000005CD" comment="" hidden="false" />
       <node type="Hex16Node" name="N000005CE" comment="" hidden="false" />
       <node type="Hex8Node" name="N000005CF" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000593" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000594" comment="" hidden="false" />
+      <node type="PointerNode" name="N00000594" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000F3C" comment="" hidden="false" reference="BI6EdbQaB0qZqHW5VPVhRA==" />
+      </node>
       <node type="Hex64Node" name="N00000595" comment="" hidden="false" />
       <node type="PointerNode" name="blend_database" comment="" hidden="false">
         <node type="ClassInstanceNode" name="N00001662" comment="" hidden="false" reference="lfynD2bWVkGaGIw2/QFyXA==" />
@@ -1005,14 +1010,18 @@
       <node type="Hex64Node" name="N0000059B" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000059C" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000059D" comment="" hidden="false" />
-      <node type="PointerNode" name="third_person_cam" comment="" hidden="false">
+      <node type="PointerNode" name="active_camera" comment="" hidden="false">
         <node type="ClassInstanceNode" name="N0000141E" comment="" hidden="false" reference="s2ZZauLvRkyFqNk5+WwqGw==" />
       </node>
-      <node type="Hex64Node" name="N0000059F" comment="" hidden="false" />
+      <node type="PointerNode" name="third_person_cam" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000AEC" comment="" hidden="false" reference="s2ZZauLvRkyFqNk5+WwqGw==" />
+      </node>
       <node type="PointerNode" name="anim_cam" comment="" hidden="false">
         <node type="ClassInstanceNode" name="N00000A32" comment="" hidden="false" reference="98lYTkCkCk+lDvlN2B/WXg==" />
       </node>
-      <node type="Hex64Node" name="N000005A1" comment="" hidden="false" />
+      <node type="PointerNode" name="peek_cam" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000B11" comment="" hidden="false" reference="aS2Wi23OekO9zkWGzwHZkw==" />
+      </node>
       <node type="Hex64Node" name="N000005A2" comment="" hidden="false" />
       <node type="Hex64Node" name="N000005A3" comment="" hidden="false" />
       <node type="Hex64Node" name="N000005A4" comment="" hidden="false" />
@@ -2274,89 +2283,19 @@
       <node type="Hex64Node" name="N00001366" comment="" hidden="false" />
     </class>
     <class uuid="s2ZZauLvRkyFqNk5+WwqGw==" name="ZHM53rdPersonCamera" comment="" address="140000000">
-      <node type="Hex64Node" name="N00001420" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001421" comment="" hidden="false" />
-      <node type="ClassInstanceNode" name="main_camera" comment="" hidden="false" reference="CyZ6TqjI/k+w4rpfdKNVMA==" />
-      <node type="Hex64Node" name="N00001424" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001425" comment="" hidden="false" />
-      <node type="Vector2Node" name="rotation" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015CF" comment="" hidden="false" />
-      <node type="Int32Node" name="N00001427" comment="" hidden="false" />
-      <node type="Int32Node" name="N000015D1" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001428" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001429" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000142A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000142B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000142C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000142D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000142E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000142F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001430" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001431" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001432" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001433" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001434" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001435" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001436" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001437" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001438" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001439" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000143A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000143B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000143C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000143D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000143E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000143F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001440" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001441" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001442" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001443" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001444" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001445" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001446" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001447" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001448" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001449" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000144A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000144B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000144C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000144D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000144E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000144F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001450" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001451" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001452" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001453" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001454" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001455" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001456" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001457" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001458" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001459" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000145A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000145B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000145C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000145D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000145E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000145F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001460" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001461" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00000CA3" comment="" hidden="false" reference="VSsOMaYIIEGeK2CkCXhKXQ==" />
       <node type="UInt32Node" name="N00001462" comment="" hidden="false" />
       <node type="Hex32Node" name="N000015CA" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001463" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001464" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001465" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001466" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001467" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001468" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001469" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000146A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000146B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000146C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000146D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000146E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000146F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001470" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001463" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F8B" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001464" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F8F" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001465" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F8D" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00000F6E" comment="" hidden="false" reference="IhCu0WBWoUyYqmEaeHo6zw==" />
+      <node type="ClassInstanceNode" name="N00000F72" comment="" hidden="false" reference="IhCu0WBWoUyYqmEaeHo6zw==" />
+      <node type="ClassInstanceNode" name="N00000F74" comment="" hidden="false" reference="/VbmSRmrXkCUEgk4SAHnuA==" />
+      <node type="Hex64Node" name="N00000F79" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001471" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001472" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001473" comment="" hidden="false" />
@@ -2368,94 +2307,46 @@
       <node type="Hex64Node" name="N00001479" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000147A" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000147B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000147C" comment="" hidden="false" />
+      <node type="FloatNode" name="N0000147C" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000D5A" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000147D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000147E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000147F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001480" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001481" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001482" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001483" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001484" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001485" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001486" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001487" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001488" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001489" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000148A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000148B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000148C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000148D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000148E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000148F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001490" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001491" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001492" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001493" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001494" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001495" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001496" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001497" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00001498" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001499" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015EE" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000149A" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015F0" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000149B" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015F2" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000149C" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015F7" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000149D" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015F9" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000149E" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001624" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000149F" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001626" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A0" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001628" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A1" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015FD" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A2" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015FF" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A3" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001603" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A4" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001605" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A5" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001607" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A6" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001609" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A7" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000160B" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A8" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000160D" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014A9" comment="" hidden="false" />
-      <node type="Hex32Node" name="N0000160F" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014AA" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001611" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014AB" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001613" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014AC" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001615" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014AD" comment="" hidden="false" />
-      <node type="Hex32Node" name="N00001617" comment="" hidden="false" />
-      <node type="FloatNode" name="N000014AE" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015E2" comment="" hidden="false" />
-      <node type="Hex64Node" name="N000014AF" comment="" hidden="false" />
-      <node type="Hex64Node" name="N000014B0" comment="" hidden="false" />
-      <node type="Hex64Node" name="N000014B1" comment="" hidden="false" />
+      <node type="FloatNode" name="N0000147E" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F9A" comment="" hidden="false" />
+      <node type="Hex32Node" name="N0000147F" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F9C" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001480" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F9E" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="active_profile_data" comment="" hidden="false" reference="/nzioYbr8kislCON+VjHTw==" />
+      <node type="Hex32Node" name="N00000FA0" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001482" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000FA2" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001483" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000FA4" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001484" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000FA6" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001485" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000FA8" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001486" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000FAA" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001487" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000FAC" comment="" hidden="false" />
+      <node type="FloatNode" name="N00001488" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000FAE" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001489" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="data_to_copy" comment="" hidden="false" reference="vKloB2aMTEWliaNV6bA4nQ==" />
+      <node type="Hex32Node" name="N000014B0" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000D5F" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014B1" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000D61" comment="" hidden="false" />
       <node type="Hex32Node" name="N000014B2" comment="" hidden="false" />
       <node type="Hex32Node" name="N000015E0" comment="" hidden="false" />
       <node type="FloatNode" name="trace_fraction" comment="" hidden="false" />
       <node type="Hex32Node" name="N000015DE" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014B4" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000015E4" comment="" hidden="false" />
+      <node type="FloatNode" name="N000014B4" comment="" hidden="false" />
+      <node type="FloatNode" name="N000015E4" comment="" hidden="false" />
       <node type="Hex32Node" name="N000014B5" comment="" hidden="false" />
       <node type="Hex32Node" name="N000015E6" comment="" hidden="false" />
-      <node type="Hex64Node" name="N000014B6" comment="" hidden="false" />
-      <node type="FloatNode" name="N000014B7" comment="" hidden="false" />
-      <node type="FloatNode" name="N0000162D" comment="" hidden="false" />
-      <node type="Hex32Node" name="N000014B8" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00001118" comment="" hidden="false" reference="/VbmSRmrXkCUEgk4SAHnuA==" />
       <node type="Hex32Node" name="N0000162F" comment="" hidden="false" />
       <node type="Hex32Node" name="N000014B9" comment="" hidden="false" />
       <node type="Hex32Node" name="N00001631" comment="" hidden="false" />
@@ -2544,7 +2435,10 @@
       <node type="Hex64Node" name="N0000150B" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000150C" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000150D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000150E" comment="" hidden="false" />
+      <node type="Hex16Node" name="N0000150E" comment="" hidden="false" />
+      <node type="Hex16Node" name="N00000F67" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F68" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F65" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000150F" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001510" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001511" comment="" hidden="false" />
@@ -2575,8 +2469,8 @@
       <node type="Hex64Node" name="N0000152A" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000152B" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000152C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000152D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N0000152E" comment="" hidden="false" />
+      <node type="Int32Node" name="camera_profile" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000DF8" comment="" hidden="false" />
       <node type="Hex64Node" name="N0000152F" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001530" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001531" comment="" hidden="false" />
@@ -2621,16 +2515,16 @@
       <node type="Hex64Node" name="N00001558" comment="" hidden="false" />
       <node type="Hex64Node" name="N00001559" comment="" hidden="false" />
     </class>
-    <class uuid="lfynD2bWVkGaGIw2/QFyXA==" name="ZHM5CameraProfileBlendDatabase_RECLASS" comment="" address="140000000">
+    <class uuid="lfynD2bWVkGaGIw2/QFyXA==" name="ZHM5CameraProfileBlendDatabase_RECLASS" comment="" address="2E366968">
       <node type="Hex64Node" name="N00001664" comment="" hidden="false" />
       <node type="ClassInstanceNode" name="N00000BE3" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
       <node type="ClassInstanceNode" name="m_GameCamProfiles" comment="" hidden="false" reference="yaeKqpTm8UerJ30L0IwuqA==" />
-      <node type="ClassInstanceNode" name="m_GameCamTransitions" comment="" hidden="false" reference="yaeKqpTm8UerJ30L0IwuqA==" />
+      <node type="ClassInstanceNode" name="m_GameCamTransitions" comment="" hidden="false" reference="WGS7KE8wuki5POVR8YRukA==" />
       <node type="ClassInstanceNode" name="m_GameCamControls" comment="" hidden="false" reference="yaeKqpTm8UerJ30L0IwuqA==" />
-      <node type="ArrayNode" name="array_of_ones" comment="" hidden="false" count="56">
+      <node type="ArrayNode" name="cams_in_use" comment="sets to 0 in use" hidden="false" count="56">
         <node type="UInt8Node" name="N00000ECF" comment="" hidden="false" />
       </node>
-      <node type="ArrayNode" name="unknown_data" comment="" hidden="false" count="58">
+      <node type="ArrayNode" name="cams_unknown_data" comment="" hidden="false" count="58">
         <node type="ClassInstanceNode" name="N00000E07" comment="" hidden="false" reference="/nzioYbr8kislCON+VjHTw==" />
       </node>
       <node type="ArrayNode" name="m_GameCamProfilesEX" comment="" hidden="false" count="58">
@@ -2681,7 +2575,173 @@
       <node type="Hex64Node" name="N00000A0C" comment="" hidden="false" />
     </class>
     <class uuid="98lYTkCkCk+lDvlN2B/WXg==" name="ZHM5AnimCamera" comment="" address="140000000">
-      <node type="Hex64Node" name="N00000A34" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00000A34" comment="" hidden="false" reference="VSsOMaYIIEGeK2CkCXhKXQ==" />
+      <node type="Hex64Node" name="N00000B14" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B15" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B16" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B17" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B18" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B19" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B1A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B1B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B9F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA0" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA4" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA5" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BA9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BAA" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BAB" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BAC" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BAD" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BAE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BAF" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB0" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB4" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB5" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BB9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BBA" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BBB" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BBC" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BBD" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BBE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BBF" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC0" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC4" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC5" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BC9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BCA" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BCB" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BCC" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BCD" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BCE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BCF" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD0" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD4" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD5" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BD9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BDA" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BDB" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BDC" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BDD" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BDE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BDF" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE0" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE4" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE5" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BE9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BEA" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BEB" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BEC" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BED" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BEE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BEF" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF0" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF2" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF3" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF4" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF5" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BF9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BFA" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BFB" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BFC" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BFD" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BFE" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000BFF" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C00" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C01" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C02" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C03" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C04" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C05" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C06" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C07" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C08" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C09" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C0A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C0B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C0C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C0D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C0E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C0F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C10" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C11" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C12" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C13" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C14" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C15" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C16" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C17" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C18" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C19" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C1A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C1B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C1C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C1D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C1E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C1F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C20" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C21" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C22" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C23" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C24" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C25" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C26" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C27" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C28" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C29" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C2A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C2B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C2C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C2D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C2E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C2F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C30" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C31" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C32" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C33" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C34" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C35" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C36" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C37" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C38" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C39" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C3A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C3B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C3C" comment="" hidden="false" />
     </class>
     <class uuid="CeKbVxiuBEaT9+NhB/ppkg==" name="N00000B46" comment="" address="140000000">
       <node type="PointerNode" name="first" comment="" hidden="false">
@@ -2697,27 +2757,47 @@
       <node type="PointerNode" name="last" comment="" hidden="false" />
       <node type="PointerNode" name="allocated_last" comment="" hidden="false" />
     </class>
-    <class uuid="/nzioYbr8kislCON+VjHTw==" name="N00000E08" comment="" address="140000000">
-      <node type="Hex64Node" name="N00000E09" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E0A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E0B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E0C" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E0D" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E0E" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E0F" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E10" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E11" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E12" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E13" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E14" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E15" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E16" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E17" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E18" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E19" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E1A" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E1B" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000E1C" comment="" hidden="false" />
+    <class uuid="/nzioYbr8kislCON+VjHTw==" name="UnknownCameraData" comment="" address="140000000">
+      <node type="FloatNode" name="N00000E09" comment="" hidden="false" />
+      <node type="FloatNode" name="height1" comment="" hidden="false" />
+      <node type="FloatNode" name="stick_length1" comment="" hidden="false" />
+      <node type="FloatNode" name="radius1" comment="" hidden="false" />
+      <node type="FloatNode" name="radius2" comment="" hidden="false" />
+      <node type="FloatNode" name="interp_t" comment="" hidden="false" />
+      <node type="FloatNode" name="fov1" comment="" hidden="false" />
+      <node type="FloatNode" name="fov2" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000E0D" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000018CC" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000E0E" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000018CE" comment="" hidden="false" />
+      <node type="FloatNode" name="stick_length2" comment="" hidden="false" />
+      <node type="FloatNode" name="stick_length3" comment="" hidden="false" />
+      <node type="FloatNode" name="N0000187D" comment="" hidden="false" />
+      <node type="FloatNode" name="N000018C0" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000E10" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001881" comment="" hidden="false" />
+      <node type="FloatNode" name="height2" comment="" hidden="false" />
+      <node type="FloatNode" name="height3" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E12" comment="" hidden="false" />
+      <node type="FloatNode" name="N00001885" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E13" comment="" hidden="false" />
+      <node type="FloatNode" name="N00001887" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E14" comment="" hidden="false" />
+      <node type="FloatNode" name="N00001889" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E15" comment="" hidden="false" />
+      <node type="FloatNode" name="collision_height" comment="" hidden="false" />
+      <node type="FloatNode" name="collision_height_from" comment="" hidden="false" />
+      <node type="FloatNode" name="N0000188D" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E17" comment="" hidden="false" />
+      <node type="Hex32Node" name="N0000188F" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000E18" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001891" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000E19" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001893" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E1A" comment="" hidden="false" />
+      <node type="FloatNode" name="N00001895" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000E1B" comment="" hidden="false" />
+      <node type="FloatNode" name="N00001897" comment="" hidden="false" />
     </class>
     <class uuid="wKUY0gJUF0CamxXv1caXrA==" name="N00000E4E" comment="" address="140000000">
       <node type="Hex64Node" name="N00000E4F" comment="" hidden="false" />
@@ -2726,10 +2806,14 @@
       <node type="Hex64Node" name="N00000E96" comment="" hidden="true" />
       <node type="Hex64Node" name="N00000E97" comment="" hidden="true" />
       <node type="Hex64Node" name="N00000E98" comment="" hidden="true" />
-      <node type="Hex64Node" name="N00000EA8" comment="" hidden="false" />
+      <node type="PointerNode" name="override_profile2" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000BE1" comment="" hidden="false" reference="jbF9qkfzm0K1yw+Uapyebw==" />
+      </node>
       <node type="Hex64Node" name="N00000EA9" comment="" hidden="false" />
       <node type="Hex64Node" name="N00000EAA" comment="" hidden="false" />
-      <node type="Hex64Node" name="N00000EAB" comment="" hidden="false" />
+      <node type="PointerNode" name="profile_entity" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000C06" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
+      </node>
     </class>
     <class uuid="Nien8VbKKESRlQlSyJQTmA==" name="GameCamProfileDesc" comment="" address="140000000">
       <node type="BoolNode" name="has_data" comment="" hidden="false" />
@@ -2738,7 +2822,341 @@
       <node type="FloatNode" name="f1" comment="" hidden="false" />
       <node type="FloatNode" name="f2" comment="" hidden="false" />
       <node type="Hex32Node" name="N00000E7B" comment="" hidden="false" />
-      <node type="ClassInstanceNode" name="profile" comment="" hidden="false" reference="CyZ6TqjI/k+w4rpfdKNVMA==" />
+      <node type="ClassInstanceNode" name="profile" comment="" hidden="false" reference="qXggzk8diEWbQrA4AymHVw==" />
+    </class>
+    <class uuid="jbF9qkfzm0K1yw+Uapyebw==" name="ZHM5GameCamProfileEntity_RECLASS" comment="" address="33711EC8">
+      <node type="Hex64Node" name="N00000ED4" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00000ED5" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
+      <node type="Hex64Node" name="N00000ED6" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000ED7" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000ED8" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bAlignYawPitch" comment="" hidden="false" />
+      <node type="Hex16Node" name="N00000BE2" comment="" hidden="false" />
+      <node type="Hex8Node" name="N00000BE3" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fPitchAngle" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fYawAngle" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fHeight" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fStickLength" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fRadius" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fRadiusLeft" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fRotationOffsetY" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fFov" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fPrecisionShotFOV" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fBlendTime" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fProfileBlendTime" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fFacingOffsetX" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fDrag" comment="" hidden="false" />
+      <node type="Int32Node" name="m_eState" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000EE0" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000BE8" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000EE1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000EE2" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000EE3" comment="" hidden="false" />
+      <node type="Int32Node" name="m_nPriority" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fPitchMaxOffset" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fPitchMinOffset" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fYawOffset" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fYawBase" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bEnableSmootingAtLimits" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bApplyLimitsInstantly" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bYawBlendOutRadius" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bYawAnimation" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fRotationOffsetYYaw" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fStickLengthYaw" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fYawAnimationRange" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bPitchAnimation" comment="" hidden="false" />
+      <node type="Hex16Node" name="N00000C04" comment="" hidden="false" />
+      <node type="Hex8Node" name="N00000C05" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fHeightPitch" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fPitchAngle0" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fPitchAngle1" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bEnablePitchLevelOut" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bEnableSmoothing" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bEnableAimAssist" comment="" hidden="false" />
+      <node type="Hex8Node" name="N00000C41" comment="" hidden="false" />
+      <node type="Int32Node" name="m_eCameraControls" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bUseCollisionHeight" comment="" hidden="false" />
+      <node type="Hex16Node" name="N00000C47" comment="" hidden="false" />
+      <node type="Hex8Node" name="N00000C48" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fCollisionHeight" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fCollisionHeightFrom" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bAimPushOut" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bEnableSoftCollision" comment="" hidden="false" />
+      <node type="Hex8Node" name="N00000C4F" comment="" hidden="false" />
+      <node type="Hex8Node" name="N00000C4D" comment="" hidden="false" />
+      <node type="FloatNode" name="m_fTossHeight" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C10" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000EED" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000C12" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000EEE" comment="" hidden="false" />
+    </class>
+    <class uuid="aS2Wi23OekO9zkWGzwHZkw==" name="ZHM5PeekCamera" comment="" address="140000000">
+      <node type="Hex64Node" name="N00000B13" comment="" hidden="false" />
+    </class>
+    <class uuid="VSsOMaYIIEGeK2CkCXhKXQ==" name="ZHM5CameraBaseFunc" comment="" address="140000000">
+      <node type="Hex64Node" name="N00000B1E" comment="" hidden="false" />
+      <node type="PointerNode" name="N00000B1F" comment="" hidden="false" />
+      <node type="PointerNode" name="main_camera" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000CF4" comment="" hidden="false" reference="vyfgOQZEsE+MgjzUKI7SzA==" />
+      </node>
+      <node type="ClassInstanceNode" name="hitman_character" comment="" hidden="false" reference="CyZ6TqjI/k+w4rpfdKNVMA==" />
+      <node type="Int32Node" name="camera_type_maybe" comment="" hidden="false" />
+      <node type="Vector2Node" name="rotation" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000B24" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000CA9" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B25" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B26" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B27" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B28" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B29" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B2A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B2B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B2C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B2D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B2E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B2F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B30" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B31" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B32" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B33" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B34" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B35" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B36" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B37" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B38" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B39" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B3A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B3B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B3C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B3D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B3E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B3F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B40" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B41" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B42" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B43" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B44" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B45" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B46" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B47" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B48" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B49" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B4A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B4B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B4C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B4D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B4E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B4F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B50" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B51" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B52" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B53" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B54" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B55" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B56" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B57" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B58" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B59" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B5A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B5B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B5C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B5D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000B5E" comment="" hidden="false" />
+    </class>
+    <class uuid="OW/Cs8TPl0ex3BLnn2CAxQ==" name="N00000CA2" comment="" address="140000000">
+      <node type="Hex64Node" name="N00001420" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001421" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="main_camera" comment="" hidden="false" reference="CyZ6TqjI/k+w4rpfdKNVMA==" />
+      <node type="Hex64Node" name="N00001424" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001425" comment="" hidden="false" />
+      <node type="Vector2Node" name="rotation" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000015CF" comment="" hidden="false" />
+      <node type="Int32Node" name="N00001427" comment="" hidden="false" />
+      <node type="Int32Node" name="N000015D1" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001428" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001429" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000142A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000142B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000142C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000142D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000142E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000142F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001430" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001431" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001432" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001433" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001434" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001435" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001436" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001437" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001438" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001439" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000143A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000143B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000143C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000143D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000143E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000143F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001440" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001441" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001442" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001443" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001444" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001445" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001446" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001447" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001448" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001449" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000144A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000144B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000144C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000144D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000144E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000144F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001450" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001451" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001452" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001453" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001454" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001455" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001456" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001457" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001458" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001459" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000145A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000145B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000145C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000145D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000145E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000145F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001460" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001461" comment="" hidden="false" />
+    </class>
+    <class uuid="qXggzk8diEWbQrA4AymHVw==" name="TEntityRefCameraProfile" comment="" address="140000000">
+      <node type="PointerNode" name="base" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000C7F" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
+      </node>
+      <node type="PointerNode" name="ptr" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00000CC4" comment="" hidden="false" reference="jbF9qkfzm0K1yw+Uapyebw==" />
+      </node>
+    </class>
+    <class uuid="BI6EdbQaB0qZqHW5VPVhRA==" name="ZHM53rdPersonCamProfile" comment="" address="140000000">
+      <node type="Hex64Node" name="N00000F3E" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00000F3F" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
+      <node type="FloatNode" name="N00000F40" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F55" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F41" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F57" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F42" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F59" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F43" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F44" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F45" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F46" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F4A" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F53" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F4B" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F4C" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F4D" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F4E" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F4F" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F50" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00000F51" comment="" hidden="false" />
+    </class>
+    <class uuid="IhCu0WBWoUyYqmEaeHo6zw==" name="ZMapPieceWiseLinear" comment="" address="140000000">
+      <node type="ClassInstanceNode" name="base" comment="" hidden="false" reference="YHc++toX3UiEUTlshWadiw==" />
+      <node type="Hex32Node" name="N00001469" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F82" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F75" comment="" hidden="false" />
+      <node type="FloatNode" name="N00000F84" comment="" hidden="false" />
+    </class>
+    <class uuid="YHc++toX3UiEUTlshWadiw==" name="ZMap" comment="" address="140000000">
+      <node type="Hex64Node" name="N00001466" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001467" comment="" hidden="false" />
+    </class>
+    <class uuid="/VbmSRmrXkCUEgk4SAHnuA==" name="ZMapPoly" comment="" address="140000000">
+      <node type="ClassInstanceNode" name="N00000F78" comment="" hidden="false" reference="YHc++toX3UiEUTlshWadiw==" />
+      <node type="Int32Node" name="N00000F7E" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000F80" comment="" hidden="false" />
+    </class>
+    <class uuid="vKloB2aMTEWliaNV6bA4nQ==" name="N00000FDD" comment="" address="140000000">
+      <node type="Int32Node" name="current_profile" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001624" comment="" hidden="false" />
+      <node type="Hex32Node" name="N0000149F" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001626" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A0" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001628" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A1" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000015FD" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A2" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000015FF" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A3" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001603" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A4" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001605" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A5" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001607" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A6" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001609" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A7" comment="" hidden="false" />
+      <node type="Hex32Node" name="N0000160B" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A8" comment="" hidden="false" />
+      <node type="Hex32Node" name="N0000160D" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014A9" comment="" hidden="false" />
+      <node type="Hex32Node" name="N0000160F" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014AA" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001611" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014AB" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001613" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014AC" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001615" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014AD" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00001617" comment="" hidden="false" />
+      <node type="FloatNode" name="N000014AE" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000015E2" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014AF" comment="" hidden="false" />
+      <node type="Hex32Node" name="N00000FDC" comment="" hidden="false" />
+    </class>
+    <class uuid="m6t4umpNtU2KxnmxLQdQYQ==" name="N00001117" comment="" address="140000000">
+      <node type="Hex64Node" name="N000014B6" comment="" hidden="false" />
+      <node type="FloatNode" name="N000014B7" comment="" hidden="false" />
+      <node type="FloatNode" name="N0000162D" comment="" hidden="false" />
+      <node type="Hex32Node" name="N000014B8" comment="" hidden="false" />
+    </class>
+    <class uuid="WGS7KE8wuki5POVR8YRukA==" name="N0000111A" comment="" address="140000000">
+      <node type="PointerNode" name="first" comment="" hidden="false">
+        <node type="ArrayNode" name="N000011D1" comment="" hidden="false" count="256">
+          <node type="ClassInstanceNode" name="N000011F4" comment="" hidden="false" reference="x16bO+YHgUe28H4fdlgN7A==" />
+        </node>
+      </node>
+      <node type="PointerNode" name="last" comment="" hidden="false" />
+      <node type="PointerNode" name="last_allocated" comment="" hidden="false" />
+    </class>
+    <class uuid="bTj3TbmvN0KpIazvzx+rdg==" name="fdsgdfgsdf" comment="" address="140000000">
+      <node type="ClassInstanceNode" name="ZHM5GameCamTransition" comment="" hidden="false" reference="x16bO+YHgUe28H4fdlgN7A==" />
+    </class>
+    <class uuid="x16bO+YHgUe28H4fdlgN7A==" name="TEntityRefZHM5GameCamTransition" comment="" address="140000000">
+      <node type="PointerNode" name="base" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N0000121D" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
+      </node>
+      <node type="PointerNode" name="ptr" comment="" hidden="false">
+        <node type="ClassInstanceNode" name="N00001241" comment="" hidden="false" reference="R3nNI32ecEqVlj9ipj0VFg==" />
+      </node>
+    </class>
+    <class uuid="R3nNI32ecEqVlj9ipj0VFg==" name="ZHM5GameCamTransition" comment="" address="140000000">
+      <node type="Hex64Node" name="N00001243" comment="" hidden="false" />
+      <node type="ClassInstanceNode" name="N00001244" comment="" hidden="false" reference="LkKkNBRP70Ct+k3YDRhf3w==" />
+      <node type="FloatNode" name="N00001245" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bTransitionWhileMoving" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bTransitionWhileColliding" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bAlignToBaseAngles" comment="" hidden="false" />
+      <node type="BoolNode" name="m_bIgnoreProfileAlignment" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001246" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001247" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001248" comment="" hidden="false" />
+      <node type="Hex64Node" name="N00001249" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000124A" comment="" hidden="false" />
+      <node type="Hex64Node" name="N0000124B" comment="" hidden="false" />
     </class>
   </classes>
 </reclass>

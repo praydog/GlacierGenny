@@ -113,19 +113,18 @@ genny::GenericType* type_from_entity_ref(genny::Namespace* g, sdk::ClassDescript
         return generic_entity_ref;
     }
 
-    auto contained_type = (sdk::Type_CLASS*)utility::calculate_absolute((*type_load_ref) + 3);
+    auto contained_descriptor = (sdk::ClassDescriptor*)utility::calculate_absolute((*type_load_ref) + 3);
 
-    if (contained_type == nullptr || contained_type->descriptor == nullptr ||
-        contained_type->descriptor->name == nullptr) {
+    if (contained_descriptor == nullptr || contained_descriptor->name == nullptr) {
         return generic_entity_ref;
     }
 
     // nope
-    if (contained_type->descriptor->type_index != (uint32_t)sdk::DescriptorType::CLASS) {
+    if (contained_descriptor->type_index != (uint32_t)sdk::DescriptorType::CLASS) {
         return generic_entity_ref;
     }
 
-    auto contained_name = std::string{contained_type->descriptor->name};
+    auto contained_name = std::string{contained_descriptor->name};
     auto proper_class = class_from_name(g, contained_name);
 
     std::stringstream proper_typename;
@@ -237,6 +236,8 @@ template <typename T> T* type_from_descriptor(genny::Namespace* g, sdk::BaseType
 }
 
 genny::Class* generate_class(genny::Namespace* g, const std::string& class_name, sdk::ClassDescriptor* klass) {
+    printf("Generating class %s\n", class_name.c_str());
+
     auto c = class_from_name(g, class_name);
     c->size(klass->size);
 
@@ -328,7 +329,8 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                     if (t != nullptr) {
                         c->variable(field_name)->type(t)->offset(field->field_offset);
                     } else {
-                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        auto v = c->variable(field_name)->offset(field->field_offset);
+                        v->type(g->type("uint8_t")->array_(descriptor->size));
                     }
 
                     break;
@@ -360,7 +362,8 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                 // e.g. TEntityRef<blah>
                 case sdk::DescriptorType::T_ENTITY_REF: {
                     if (t == nullptr) {
-                        c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                        auto v = c->variable(field_name)->offset(field->field_offset);
+                        v->type(g->type("uint8_t")->array_(descriptor->size));
                     } else {
                         c->variable(field_name)->type(t)->offset(field->field_offset);
                     }
@@ -374,10 +377,8 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                 case sdk::DescriptorType::PRIMITIVE: {
                     if (t == nullptr) {
                         if (field->field_offset != 0 && field->get_field == nullptr) {
-                            c->array_(field_name)
-                                ->count(descriptor->size)
-                                ->offset(field->field_offset)
-                                ->type("uint8_t");
+                            auto v = c->variable(field_name)->offset(field->field_offset);
+                            v->type(g->type("uint8_t")->array_(descriptor->size));
                         }
 
                         break;
@@ -408,7 +409,7 @@ genny::Class* generate_class(genny::Namespace* g, const std::string& class_name,
                 break;
                 default:
                     // unsupported type, just generate an array of bytes
-                    c->array_(field_name)->count(descriptor->size)->offset(field->field_offset)->type("uint8_t");
+                    c->variable(field_name)->offset(field->field_offset)->type(g->type("uint8_t")->array_(descriptor->size));
                     break;
                 }
             } break;
